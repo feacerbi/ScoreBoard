@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Score Board</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_section1">Current Match</string>
+    <string name="title_section2">Saved Matches</string>
+    <string name="title_section3">Players</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_register_player">RegisterPlayerActivity</string>
+    <string name="title_activity_add_game">AddGameActivity</string>
+    <string-array name="player_types">
+        <item>Default</item>
+        <item>Custom</item>
+        <item>Select</item>
+    </string-array>
+    <string-array name="number_of_players">
+        <item>1 VS 1</item>
+        <!--<item>2 VS 2</item>-->
+        <!--<item>1 VS 1 VS 1</item>-->
+        <!--<item>2 VS 2 VS 2</item>-->
+    </string-array>
+    <string-array name="game_modes">
+        <item>Generic</item>
+        <item>Buraco</item>
+        <item>Tranca</item>
+        <item>Truco</item>
+    </string-array>
+
+</resources>

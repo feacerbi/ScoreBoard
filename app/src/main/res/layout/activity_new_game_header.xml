@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/game_skins_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GAME SKIN"/>
+
+    <Spinner
+        android:id="@+id/game_skins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_below="@id/game_skins_text"
+        android:spinnerMode="dropdown">
+    </Spinner>
+
+    <TextView
+        android:id="@+id/game_modes_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/game_skins"
+        android:text="GAME MODE"/>
+
+    <Spinner
+        android:id="@+id/game_modes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_below="@id/game_modes_text"
+        android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/win_score_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/game_modes"
+        android:text="WIN SCORE"/>
+
+    <EditText
+        android:id="@+id/win_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:inputType="number"
+        android:maxLines="1"
+        android:layout_below="@id/win_score_text"
+        android:selectAllOnFocus="true"
+        android:text="3000"/>
+
+    <TextView
+        android:id="@+id/select_players_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/win_score"
+        android:text="SELECT PLAYERS"/>
+
+</RelativeLayout>

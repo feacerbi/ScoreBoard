@@ -1,0 +1,198 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_view"
+    tools:context=".MainScore" >
+
+    <LinearLayout
+        android:id="@+id/score_card"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:padding="8dp"
+        android:background="@android:color/holo_green_dark"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name_1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="Player 1"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/score_1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:layout_marginTop="6dp"
+                android:text="1000"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.15"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/round_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Round 1"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:maxLines="1"
+                android:gravity="center_horizontal|top"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:text="X"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:gravity="center_horizontal|top"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name_2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:text="Player 2"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:gravity="center_horizontal"/>
+
+            <TextView
+                android:id="@+id/score_2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.5"
+                android:layout_marginTop="6dp"
+                android:text="500"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_bar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/new_score1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:hint="Score 1"
+            android:maxLines="1"
+            android:inputType="number|numberSigned"
+            android:selectAllOnFocus="true"/>
+
+        <Button
+            android:id="@+id/add_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="Add"/>
+
+        <EditText
+            android:id="@+id/new_score2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:hint="Score 2"
+            android:maxLines="1"
+            android:maxEms="6"
+            android:inputType="number|numberSigned"
+            android:selectAllOnFocus="true"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/score_card_shadow"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/score_card"
+        android:alpha="0.7"
+        android:background="@android:color/darker_gray"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_bar_shadow"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_above="@id/add_bar"
+        android:alpha="0.5"
+        android:background="@android:color/darker_gray"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/score_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/add_bar_shadow"
+        android:layout_below="@id/score_card_shadow">
+    </ListView>
+
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Add a round score on the bar below."/>
+</RelativeLayout>
