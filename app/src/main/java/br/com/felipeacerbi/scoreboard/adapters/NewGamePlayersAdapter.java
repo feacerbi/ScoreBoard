@@ -65,22 +65,23 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         Player player;
 
         if(view == null) {
-
-            player = players.get(pos);
-
             view = activity.getLayoutInflater().inflate(R.layout.activity_new_game_player, viewGroup, false);
-
             vh = new ViewHolder();
+        } else {
+            vh = (ViewHolder) view.getTag();
+        }
 
-            vh.playerTitle = (TextView) view.findViewById(R.id.select_players_text);
-            vh.playerType = (Spinner) view.findViewById(R.id.add_player_type);
-            vh.playerName = (TextView) view.findViewById(R.id.add_player_name);
-            vh.viewPosition = pos;
-            vh.playerTitle.setText("Player " + (vh.viewPosition + 1));
-            vh.player = player;
+        player = players.get(pos);
 
-            view.setTag(vh);
-            vh.playerType.setTag(vh);
+        vh.playerTitle = (TextView) view.findViewById(R.id.select_players_text);
+        vh.playerType = (Spinner) view.findViewById(R.id.add_player_type);
+        vh.playerName = (TextView) view.findViewById(R.id.add_player_name);
+        vh.viewPosition = pos;
+        vh.playerTitle.setText("Player " + (vh.viewPosition + 1));
+        vh.player = player;
+
+        view.setTag(vh);
+        vh.playerType.setTag(vh);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
                 R.array.player_types, android.R.layout.simple_spinner_item);
@@ -114,10 +115,6 @@ public class NewGamePlayersAdapter extends BaseAdapter {
             }
         });
 
-        } else {
-            vh = (ViewHolder) view.getTag();
-            vh.playerTitle.setText("Player " + (vh.viewPosition + 1));
-        }
 
         return view;
     }
@@ -172,7 +169,7 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         final EditText newName = new EditText(activity);
-        newName.setInputType(EditorInfo.TYPE_TEXT_VARIATION_PERSON_NAME);
+        newName.setInputType(EditorInfo.TYPE_TEXT_FLAG_CAP_WORDS);
         alertDialog.setView(newName);
         alertDialog.setTitle("Custom Name");
         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -181,6 +178,7 @@ public class NewGamePlayersAdapter extends BaseAdapter {
                 vh.playerName.setText(newName.getText().toString());
                 vh.player.setName(newName.getText().toString());
                 players.get(vh.viewPosition).setName(newName.getText().toString());
+                Log.i("Button", "pos");
             }
         });
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -49,10 +49,10 @@ public class ScoreListAdapter extends ArrayAdapter<Round> {
         Round round = rounds.get(position);
 
         scoreTitle.setText(round.getScoreTitle());
-        score1.setText(String.valueOf(round.getScore1()));
-        score2.setText(String.valueOf(round.getScore2()));
-        subScore1.setText(String.valueOf(round.getSubScore1()));
-        subScore2.setText(String.valueOf(round.getSubScore2()));
+        score1.setText(String.valueOf(round.getScore(0)));
+        score2.setText(String.valueOf(round.getScore(1)));
+        subScore1.setText(String.valueOf(round.getSubScore(0)));
+        subScore2.setText(String.valueOf(round.getSubScore(1)));
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

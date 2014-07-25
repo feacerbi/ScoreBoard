@@ -1,9 +1,11 @@
 package br.com.felipeacerbi.scoreboard.models;
 
+import java.io.Serializable;
+
 /**
  * Created by felipe.acerbi on 18/07/2014.
  */
-public class Score {
+public class Score implements Serializable {
 
     public static final int SCORE_NORMAL = 0;
     public static final int SCORE_TOTAL = 1;

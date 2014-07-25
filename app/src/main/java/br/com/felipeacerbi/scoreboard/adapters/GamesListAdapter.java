@@ -1,20 +1,16 @@
 package br.com.felipeacerbi.scoreboard.adapters;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import br.com.felipeacerbi.scoreboard.R;
 import br.com.felipeacerbi.scoreboard.models.Game;
-import br.com.felipeacerbi.scoreboard.models.Player;
 
 /**
  * Created by Felipe on 05/07/2014.
@@ -50,12 +46,24 @@ public class GamesListAdapter extends BaseAdapter {
     @Override
     public View getView(int pos, View view, ViewGroup viewGroup) {
 
-        View gameItem;
+        View gameItem = view;
+        Game game = games.get(pos);
 
-        if(view == null) {
-            gameItem = activity.getLayoutInflater().inflate(R.layout.game_item, null);
-        } else {
-            gameItem = view;
+        switch(game.getGameMode()) {
+            case Game.GAME_MODE_1X1:
+                if(view == null) {
+                    gameItem = activity.getLayoutInflater().inflate(R.layout.game_item_1x1, null);
+                }
+                break;
+            case Game.GAME_MODE_2X2:
+                if(view == null) {
+                    gameItem = activity.getLayoutInflater().inflate(R.layout.game_item_2x2, null);
+                }
+                TextView name3 = (TextView) gameItem.findViewById(R.id.name_3);
+                TextView name4 = (TextView) gameItem.findViewById(R.id.name_4);
+                name3.setText(game.getPlayer(2).getName());
+                name4.setText(game.getPlayer(3).getName());
+                break;
         }
 
         TextView name1 = (TextView) gameItem.findViewById(R.id.name_1);
@@ -65,16 +73,13 @@ public class GamesListAdapter extends BaseAdapter {
         TextView score2 = (TextView) gameItem.findViewById(R.id.score_2);
         TextView winscore = (TextView) gameItem.findViewById(R.id.winscore);
 
-        Game game = games.get(pos);
+        name1.setText(game.getPlayer(0).getName());
+        name2.setText(game.getPlayer(1).getName());
+        round.setText("Round " + (game.getRounds() + 1));
+        score1.setText(String.valueOf(game.getTotalScore(0).getValue()));
+        score2.setText(String.valueOf(game.getTotalScore(1).getValue()));
+        winscore.setText(String.valueOf(game.getWinScore()));
 
-        if(game.getPlayer1() != null && game.getPlayer2() != null) {
-            name1.setText(game.getPlayer1().getName());
-            name2.setText(game.getPlayer2().getName());
-            round.setText("Round " + (game.getRounds() + 1));
-            score1.setText(String.valueOf(game.getTotalScore1()));
-            score2.setText(String.valueOf(game.getTotalScore2()));
-            winscore.setText(String.valueOf(game.getWinScore()));
-        }
         if(selectedIds.get(pos)) {
             gameItem.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
         } else {

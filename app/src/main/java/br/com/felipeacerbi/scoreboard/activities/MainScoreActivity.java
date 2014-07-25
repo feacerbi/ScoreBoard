@@ -1,5 +1,7 @@
 package br.com.felipeacerbi.scoreboard.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.FragmentManager;
@@ -9,9 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
-import br.com.felipeacerbi.scoreboard.db.GameDAO;
-import br.com.felipeacerbi.scoreboard.db.PlayerDAO;
-import br.com.felipeacerbi.scoreboard.db.RoundDAO;
 import br.com.felipeacerbi.scoreboard.fragments.CurrentMatchFragment;
 import br.com.felipeacerbi.scoreboard.fragments.GamesFragment;
 import br.com.felipeacerbi.scoreboard.models.Game;
@@ -30,7 +29,7 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_container);
+        setContentView(R.layout.activity_main_score);
 
         navDrawerFragment = (NavigationDrawerFragment) getFragmentManager().findFragmentById(R.id.navigation_drawer);
         title = getTitle();
@@ -69,6 +68,18 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
         }
 
         return false;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CurrentMatchFragment.NEW_GAME && resultCode == Activity.RESULT_OK) {
+            setGame((Game) data.getExtras().get("game"));
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, CurrentMatchFragment.newInstance(1))
+                    .commit();
+
+        }
     }
 
     @Override

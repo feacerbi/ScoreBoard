@@ -40,11 +40,10 @@ public class GameDAO extends SQLiteOpenHelper{
 
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_GAMES
                 + "(id INTEGER PRIMARY KEY, "
-                + "winScore INTEGER"
+                + "winScore INTEGER, "
                 + "gameMode INTEGER);";
 
         sldb.execSQL(sql);
-
     }
 
     @Override
@@ -86,7 +85,7 @@ public class GameDAO extends SQLiteOpenHelper{
         ContentValues cv = new ContentValues();
 
         cv.put("winScore", game.getWinScore());
-        cv.put("gameMode", game.getWinScore());
+        cv.put("gameMode", game.getGameMode());
 
         long id = getWritableDatabase().insert(TABLE_GAMES, null, cv);
 

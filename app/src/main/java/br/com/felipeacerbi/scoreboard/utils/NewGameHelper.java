@@ -1,5 +1,6 @@
 package br.com.felipeacerbi.scoreboard.utils;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,11 +23,10 @@ public class NewGameHelper {
     private Spinner gameModes;
     private ListView newPlayersList;
     private EditText winScoreView;
-    private long id = 0;
     private List<Player> players;
-    private NewGamePlayersAdapter adapter;
     private int gameMode;
     private Spinner gameSkins;
+    private NewGamePlayersAdapter adapter;
 
     public NewGameHelper(NewGameActivity nga) {
 
@@ -41,8 +41,8 @@ public class NewGameHelper {
     public void getInfo() {
 
         newPlayersList = (ListView) nga.findViewById(R.id.new_players_list);
-        adapter = new NewGamePlayersAdapter(nga, players);
         newPlayersList.addHeaderView(nga.getLayoutInflater().inflate(R.layout.activity_new_game_header, null));
+        adapter = new NewGamePlayersAdapter(nga, players);
         newPlayersList.setAdapter(adapter);
 
         gameSkins = (Spinner) newPlayersList.findViewById(R.id.game_skins);
@@ -66,6 +66,7 @@ public class NewGameHelper {
                     case 0:
                         gameMode = Game.GAME_MODE_1X1;
                         fillPlayers(gameMode);
+                        break;
                     case 1:
                         gameMode = Game.GAME_MODE_2X2;
                         fillPlayers(gameMode);
@@ -85,6 +86,8 @@ public class NewGameHelper {
 
     public void fillPlayers(int numberOfPlayers) {
 
+        players = new ArrayList<Player>();
+
         for (int i = 0; i < numberOfPlayers; i++) {
             Player newPlayer = new Player();
             newPlayer.setName("Player " + (i + 1));
@@ -92,6 +95,7 @@ public class NewGameHelper {
         }
         adapter = new NewGamePlayersAdapter(nga, players);
         newPlayersList.setAdapter(adapter);
+        newPlayersList.smoothScrollToPosition(newPlayersList.getMaxScrollAmount());
 
     }
 

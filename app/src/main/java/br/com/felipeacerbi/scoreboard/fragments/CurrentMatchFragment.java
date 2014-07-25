@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -137,8 +138,8 @@ public class CurrentMatchFragment extends Fragment {
 
         nameBox1.setText(getGame().getPlayer(0).getName());
         nameBox2.setText(getGame().getPlayer(1).getName());
-        score1.setText(String.valueOf(getGame().getTotalScore(0)));
-        score2.setText(String.valueOf(getGame().getTotalScore(1)));
+        score1.setText(String.valueOf(getGame().getTotalScore(0).getValue()));
+        score2.setText(String.valueOf(getGame().getTotalScore(1).getValue()));
         roundNumber.setText("Round " + (getGame().getRounds() + 1));
         winscore.setText(String.valueOf(getGame().getWinScore()));
         scoreList.smoothScrollToPosition(getGame().getRounds());
@@ -230,8 +231,12 @@ public class CurrentMatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = setLayout(Game.GAME_MODE_1X1);
-
         disable();
+
+        if(getGame() != null) {
+            rootView = setLayout(getGame().getGameMode());
+            createGame();
+        }
 
         return rootView;
     }
@@ -246,6 +251,12 @@ public class CurrentMatchFragment extends Fragment {
             updateScore();
             enable();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     public void disable() {
@@ -270,6 +281,7 @@ public class CurrentMatchFragment extends Fragment {
         inputScore2.setHintTextColor(Color.WHITE);
         inputScore2.setTextColor(Color.WHITE);
         addButton.setEnabled(true);
+        Log.i("Enable", ""+addBar.getVisibility());
     }
 
     public void createGame() {
@@ -288,17 +300,6 @@ public class CurrentMatchFragment extends Fragment {
         return ((MainScoreActivity) getActivity()).getGame();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == NEW_GAME && resultCode == Activity.RESULT_OK) {
-            ((MainScoreActivity) getActivity()).setGame((Game) data.getExtras().get("game"));
-            setLayout(getGame().getGameMode());
-            createGame();
-
-        }
-    }
-
     private View setLayout(int gameMode) {
 
         View rootView = null;
@@ -307,11 +308,13 @@ public class CurrentMatchFragment extends Fragment {
             case Game.GAME_MODE_1X1:
                 rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_current_game_1x1, null);
 
+                getViews(rootView);
+
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(inputScore1.getText() != null && inputScore2.getText() != null) {
-                                addRound();
+                            addRound();
                         } else {
                             Toast.makeText(getActivity(), "Input all scores", Toast.LENGTH_SHORT).show();
                         }
@@ -320,6 +323,8 @@ public class CurrentMatchFragment extends Fragment {
                 break;
             case Game.GAME_MODE_2X2:
                 rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_current_game_2x2, null);
+
+                getViews(rootView);
 
                 nameBox3 = (TextView) rootView.findViewById(R.id.name_3);
                 nameBox4 = (TextView) rootView.findViewById(R.id.name_4);
@@ -337,22 +342,28 @@ public class CurrentMatchFragment extends Fragment {
                 break;
         }
 
+
+
+        return rootView;
+
+    }
+
+    public void getViews(View rootView) {
+
+        addButton = (LinearLayout) rootView.findViewById(R.id.add_score);
+        inputScore1 = (EditText) rootView.findViewById(R.id.new_score1);
+        inputScore2 = (EditText) rootView.findViewById(R.id.new_score2);
         nameBox1 = (TextView) rootView.findViewById(R.id.name_1);
         nameBox2 = (TextView) rootView.findViewById(R.id.name_2);
         score1 = (TextView) rootView.findViewById(R.id.score_1);
         score2 = (TextView) rootView.findViewById(R.id.score_2);
         scoreList = (ListView) rootView.findViewById(R.id.score_list);
-        inputScore1 = (EditText) rootView.findViewById(R.id.new_score1);
-        inputScore2 = (EditText) rootView.findViewById(R.id.new_score2);
-        addButton = (LinearLayout) rootView.findViewById(R.id.add_score);
         roundNumber = (TextView) rootView.findViewById(R.id.round_number);
         winscore = (TextView) rootView.findViewById(R.id.winscore);
         emptyList = (TextView) rootView.findViewById(R.id.empty_text);
         addBar = rootView.findViewById(R.id.add_bar);
 
         scoreList.setEmptyView(emptyList);
-
-        return rootView;
 
     }
 
