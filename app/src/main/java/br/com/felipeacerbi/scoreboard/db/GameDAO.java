@@ -108,7 +108,7 @@ public class GameDAO extends SQLiteOpenHelper{
 
         RoundDAO roundDAO = new RoundDAO(context);
 
-        List<Round> rounds = roundDAO.listRounds(game.getId());
+        List<Round> rounds = roundDAO.listRounds(game);
 
         for(Round round : rounds) {
             roundDAO.deleteRound(round);
@@ -147,14 +147,14 @@ public class GameDAO extends SQLiteOpenHelper{
 
         RoundDAO roundDAO = new RoundDAO(context);
 
-        List<Round> rounds = roundDAO.listRounds(game.getId());
+        List<Round> rounds = roundDAO.listRounds(game);
 
         for(Round round : rounds) {
             roundDAO.deleteRound(round);
         }
 
         for(Round round : game.getRoundsList()) {
-            roundDAO.insertRound(round);
+            round.setId(roundDAO.insertRound(round));
         }
 
         ContentValues cv = new ContentValues();
@@ -204,7 +204,7 @@ public class GameDAO extends SQLiteOpenHelper{
                 game.setId(c.getLong(c.getColumnIndex("id")));
                 game.setWinScore(c.getInt(c.getColumnIndex("winScore")));
                 game.setTotalScores(scoreDAO.listGameScores(game.getId(), Score.SCORE_TOTAL));
-                game.setRounds(roundDAO.listRounds(game.getId()));
+                game.setRounds(roundDAO.listRounds(game));
                 for(Competitor competitor : competitorDAO.listCompetitors(game.getId())) {
                     game.getPlayersList().add(playerDAO.getPlayer(competitor.getPlayerId()));
                 }

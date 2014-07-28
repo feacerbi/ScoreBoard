@@ -36,12 +36,12 @@ public class Game implements Serializable {
     public void refreshTotal() {
 
         for(int i = 0; i < getTotalScores(); i++) {
-            totalScores.set(i, new Score(getGameMode()));
+            setTotalScore(i, new Score(getGameMode()));
         }
 
         for(Round round : rounds) {
             for(int i = 0; i < round.getScores(); i++) {
-                setTotalScore(i, getTotalScore(i).setValue(getTotalScore(i).getValue() + round.getScore(i).getValue()));
+                getTotalScore(i).setValue(getTotalScore(i).getValue() + round.getScore(i).getValue());
             }
         }
 
@@ -49,8 +49,17 @@ public class Game implements Serializable {
 
     public void startScores() {
 
-        for(int i = 0; i < gameMode; i++) {
-            totalScores.add(i, new Score(getGameMode()));
+        switch(gameMode) {
+            case Game.GAME_MODE_1X1:
+                for(int i = 0; i < 2; i++) {
+                    totalScores.add(new Score(Score.SCORE_TOTAL));
+                }
+                break;
+            case Game.GAME_MODE_2X2:
+                for(int i = 0; i < 2; i++) {
+                    totalScores.add(new Score(Score.SCORE_TOTAL));
+                }
+                break;
         }
 
     }
@@ -140,5 +149,10 @@ public class Game implements Serializable {
 
     public void setGameMode(int gameMode) {
         this.gameMode = gameMode;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

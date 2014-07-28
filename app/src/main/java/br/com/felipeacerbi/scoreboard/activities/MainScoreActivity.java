@@ -71,18 +71,6 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == CurrentMatchFragment.NEW_GAME && resultCode == Activity.RESULT_OK) {
-            setGame((Game) data.getExtras().get("game"));
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, CurrentMatchFragment.newInstance(1))
-                    .commit();
-
-        }
-    }
-
-    @Override
     public void onNavigationDrawerItemSelected(int position) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (position) {

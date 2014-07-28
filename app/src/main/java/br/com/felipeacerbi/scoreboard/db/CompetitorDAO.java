@@ -85,7 +85,7 @@ public class CompetitorDAO extends SQLiteOpenHelper{
                 Competitor competitor = new Competitor();
 
                 competitor.setGameId(c.getLong(c.getColumnIndex("gameId")));
-                competitor.setPlayerId(c.getInt(c.getColumnIndex("value")));
+                competitor.setPlayerId(c.getInt(c.getColumnIndex("playerId")));
 
                 competitors.add(competitor);
 
@@ -94,33 +94,6 @@ public class CompetitorDAO extends SQLiteOpenHelper{
         }
 
         return competitors;
-
-    }
-
-    public List<Score> listGameScores(long gameId, int type) {
-
-        Cursor c = getReadableDatabase().rawQuery(
-                "SELECT * FROM " + TABLE_COMPETITORS + " WHERE gameId=" + gameId + " AND type=" + type + ";", null);
-
-        List<Score> scores = new ArrayList<Score>();
-
-        if (c.moveToFirst()) {
-
-            do {
-
-                Score score = new Score(type);
-
-                score.setValue(c.getInt(c.getColumnIndex("value")));
-                score.setGameId(c.getLong(c.getColumnIndex("gameId")));
-                score.setRoundId(c.getLong(c.getColumnIndex("roundId")));
-
-                scores.add(score);
-
-            } while (c.moveToNext());
-
-        }
-
-        return scores;
 
     }
 }

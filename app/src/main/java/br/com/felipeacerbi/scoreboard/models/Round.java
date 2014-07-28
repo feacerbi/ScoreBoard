@@ -1,6 +1,7 @@
 package br.com.felipeacerbi.scoreboard.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,26 @@ public class Round implements Serializable {
     private List<Score> subScores;
     private String scoreTitle;
     private Game game;
+
+    public Round(int gameMode) {
+        scores = new ArrayList<Score>();
+        subScores = new ArrayList<Score>();
+
+        switch(gameMode) {
+            case Game.GAME_MODE_1X1:
+                for(int i = 0; i < 2; i++) {
+                    scores.add(new Score(Score.SCORE_NORMAL));
+                    subScores.add(new Score(Score.SCORE_SUB));
+                }
+                break;
+            case Game.GAME_MODE_2X2:
+                for(int i = 0; i < 2; i++) {
+                    scores.add(new Score(Score.SCORE_NORMAL));
+                    subScores.add(new Score(Score.SCORE_SUB));
+                }
+                break;
+        }
+    }
 
     public Score getScore(int position) {
         return scores.get(position);

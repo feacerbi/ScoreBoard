@@ -58,8 +58,7 @@ public class Score implements Serializable {
         this.type = type;
     }
 
-    public Score setValue(int value) {
+    public void setValue(int value) {
         this.value = value;
-        return this;
     }
 }

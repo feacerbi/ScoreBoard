@@ -186,6 +186,7 @@
                 android:padding="6dp"
                 android:gravity="center"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:text="Add"/>
         </LinearLayout>

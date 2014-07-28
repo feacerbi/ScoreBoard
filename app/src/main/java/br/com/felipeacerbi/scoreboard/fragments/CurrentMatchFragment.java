@@ -20,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,13 +74,13 @@ public class CurrentMatchFragment extends Fragment {
 
     public void addRound() {
 
-        Round round = new Round();
+        Round round = new Round(getGame().getGameMode());
 
         round.setScoreTitle("Round " + String.valueOf(getGame().getRounds() + 1) + " Score");
-        round.setScore(0, new Score(Integer.parseInt(inputScore1.getText().toString())));
-        round.setScore(1, new Score(Integer.parseInt(inputScore2.getText().toString())));
-        round.setSubScore(0, new Score(getGame().getTotalScore(0).getValue() + round.getScore(0).getValue()));
-        round.setSubScore(1, new Score(getGame().getTotalScore(1).getValue() + round.getScore(1).getValue()));
+        round.getScore(0).setValue(Integer.parseInt(inputScore1.getText().toString()));
+        round.getScore(1).setValue(Integer.parseInt(inputScore2.getText().toString()));
+        round.getSubScore(0).setValue(getGame().getTotalScore(0).getValue() + round.getScore(0).getValue());
+        round.getSubScore(1).setValue(getGame().getTotalScore(1).getValue() + round.getScore(1).getValue());
         round.setGame(getGame());
 
         getGame().addRound(round);
@@ -131,8 +130,8 @@ public class CurrentMatchFragment extends Fragment {
             case Game.GAME_MODE_1X1:
                 break;
             case Game.GAME_MODE_2X2:
-                nameBox3.setText(getGame().getPlayer(3).getName());
-                nameBox4.setText(getGame().getPlayer(4).getName());
+                nameBox3.setText(getGame().getPlayer(2).getName());
+                nameBox4.setText(getGame().getPlayer(3).getName());
                 break;
         }
 
@@ -188,8 +187,8 @@ public class CurrentMatchFragment extends Fragment {
                         winnerList.add(tempPlayers.get(1));
                         setWinner(winnerList, 100, false);
                     } else if(totalScores.get(1).getValue() > totalScores.get(0).getValue()) {
+                        winnerList.add(tempPlayers.get(2));
                         winnerList.add(tempPlayers.get(3));
-                        winnerList.add(tempPlayers.get(4));
                         setWinner(winnerList, 100, false);
                     } else {
                         setWinner(tempPlayers, 50, true);
@@ -218,6 +217,8 @@ public class CurrentMatchFragment extends Fragment {
 
         TextView winnerName = (TextView) scoreList.findViewById(R.id.winner_name);
         winnerName.setText(isDraw ? "Draw" : names);
+
+        scoreList.smoothScrollToPosition(getGame().getRounds() + 1);
 
         List<Game> games = new ArrayList<Game>();
         games.add(getGame());
@@ -262,26 +263,36 @@ public class CurrentMatchFragment extends Fragment {
     public void disable() {
         addBar.setVisibility(View.INVISIBLE);
         emptyList.setText("Start a new game on the above menu.");
-        inputScore1.setEnabled(false);
-        inputScore1.setHintTextColor(Color.LTGRAY);
-        inputScore1.setTextColor(Color.LTGRAY);
-        inputScore2.setEnabled(false);
-        inputScore2.setHintTextColor(Color.LTGRAY);
-        inputScore2.setTextColor(Color.LTGRAY);
-        addButton.setEnabled(false);
+//        inputScore1.setEnabled(false);
+//        inputScore1.setHintTextColor(Color.LTGRAY);
+//        inputScore1.setTextColor(Color.LTGRAY);
+//        inputScore2.setEnabled(false);
+//        inputScore2.setHintTextColor(Color.LTGRAY);
+//        inputScore2.setTextColor(Color.LTGRAY);
+//        addButton.setEnabled(false);
     }
 
     public void enable() {
         addBar.setVisibility(View.VISIBLE);
         emptyList.setText("Add a round score on the bar below.");
-        inputScore1.setEnabled(true);
-        inputScore1.setHintTextColor(Color.WHITE);
-        inputScore1.setTextColor(Color.WHITE);
-        inputScore2.setEnabled(true);
-        inputScore2.setHintTextColor(Color.WHITE);
-        inputScore2.setTextColor(Color.WHITE);
-        addButton.setEnabled(true);
-        Log.i("Enable", ""+addBar.getVisibility());
+//        inputScore1.setEnabled(true);
+//        inputScore1.setHintTextColor(Color.WHITE);
+//        inputScore1.setTextColor(Color.WHITE);
+//        inputScore2.setEnabled(true);
+//        inputScore2.setHintTextColor(Color.WHITE);
+//        inputScore2.setTextColor(Color.WHITE);
+//        addButton.setEnabled(true);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CurrentMatchFragment.NEW_GAME && resultCode == Activity.RESULT_OK) {
+            ((MainScoreActivity) getActivity()).setGame((Game) data.getExtras().get("game"));
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, CurrentMatchFragment.newInstance(1))
+                    .commit();
+        }
     }
 
     public void createGame() {

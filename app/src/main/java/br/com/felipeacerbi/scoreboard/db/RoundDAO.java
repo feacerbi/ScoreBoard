@@ -62,10 +62,12 @@ public class RoundDAO extends SQLiteOpenHelper{
         scoreDAO = new ScoreDAO(context);
 
         for(Score score : round.getScoresList()) {
+            score.setRoundId(round.getId());
             scoreDAO.insertScore(score);
         }
 
         for(Score subScore : round.getSubScoresList()) {
+            subScore.setRoundId(round.getId());
             scoreDAO.insertScore(subScore);
         }
 
@@ -119,12 +121,12 @@ public class RoundDAO extends SQLiteOpenHelper{
 
     }
 
-    public List<Round> listRounds(long gameId) {
+    public List<Round> listRounds(Game game) {
 
         scoreDAO = new ScoreDAO(context);
 
         Cursor c = getReadableDatabase().rawQuery(
-                "SELECT * FROM " + TABLE_ROUNDS + " WHERE gameId=" + gameId + ";", null);
+                "SELECT * FROM " + TABLE_ROUNDS + " WHERE gameId=" + game.getId() + ";", null);
 
         List<Round> rounds = new ArrayList<Round>();
 
@@ -132,7 +134,7 @@ public class RoundDAO extends SQLiteOpenHelper{
 
             do {
 
-                Round round = new Round();
+                Round round = new Round(game.getGameMode());
 
                 round.setId(c.getLong(c.getColumnIndex("id")));
                 round.setScoreTitle(c.getString(c.getColumnIndex("scoreTitle")));
