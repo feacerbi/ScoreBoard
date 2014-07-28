@@ -43,7 +43,6 @@
                 android:layout_marginTop="6dp"
                 android:text="0"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
                 android:textSize="16sp"
                 android:gravity="center_horizontal"/>
 
@@ -63,7 +62,6 @@
                 android:layout_weight="1"
                 android:text="Round 1"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
                 android:textSize="12sp"
                 android:maxLines="1"
                 android:gravity="center_horizontal|top"
@@ -87,7 +85,6 @@
                 android:layout_weight="1"
                 android:text="3000"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
                 android:textSize="12sp"
                 android:maxLines="1"
                 android:gravity="center_horizontal|bottom"
@@ -123,7 +120,6 @@
                 android:layout_marginTop="6dp"
                 android:text="0"
                 android:textColor="@android:color/white"
-                android:textStyle="bold"
                 android:textSize="16sp"
                 android:gravity="center_horizontal"/>
 
@@ -150,8 +146,8 @@
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@android:color/white"
-            android:hint="Score 1"
-            android:textColorHint="@android:color/darker_gray"
+            android:hint="Score"
+            android:textColorHint="@android:color/white"
             android:maxLines="1"
             android:inputType="number|numberSigned"
             android:selectAllOnFocus="true"/>
@@ -163,6 +159,7 @@
             android:textSize="20sp"
             android:alpha="0.5"
             android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:textColor="@android:color/white"/>
 
         <LinearLayout
@@ -185,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:padding="6dp"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
                 android:text="Add"/>
@@ -198,6 +195,7 @@
             android:textSize="20sp"
             android:alpha="0.5"
             android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
             android:textColor="@android:color/white"/>
 
         <EditText
@@ -208,8 +206,8 @@
             android:gravity="center"
             android:textSize="18sp"
             android:textColor="@android:color/white"
-            android:hint="Score 2"
-            android:textColorHint="@android:color/darker_gray"
+            android:hint="Score"
+            android:textColorHint="@android:color/white"
             android:maxLines="1"
             android:maxEms="6"
             android:inputType="number|numberSigned"
@@ -224,7 +222,7 @@
         android:scaleType="fitXY"
         android:layout_height="4dp"
         android:layout_below="@id/score_card"
-        android:alpha="0.7"
+        android:alpha="0.5"
         android:src="@drawable/drawer_shadow_down"
         android:orientation="horizontal">
     </ImageView>
@@ -235,7 +233,7 @@
         android:scaleType="fitXY"
         android:layout_height="4dp"
         android:layout_above="@id/add_bar"
-        android:alpha="0.7"
+        android:alpha="0.5"
         android:src="@drawable/drawer_shadow"
         android:orientation="horizontal">
     </ImageView>
@@ -255,5 +253,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
+        android:textColor="#696969"
         android:text="Add a round score on the bar below."/>
 </RelativeLayout>

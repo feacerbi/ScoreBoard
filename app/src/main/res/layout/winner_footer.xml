@@ -14,6 +14,7 @@
         android:text="End of Game:"
         android:textStyle="bold"
         android:textSize="20sp"
+        android:textColor="#696969"
         android:gravity="center"/>
 
     <LinearLayout
@@ -29,7 +30,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
             android:text="Winner:"
+            android:textStyle="bold"
             android:textSize="22sp"
+            android:textColor="#696969"
             android:gravity="center"/>
 
         <TextView
@@ -39,6 +42,7 @@
             android:layout_weight="0.5"
             android:text="Player 1"
             android:textSize="26sp"
+            android:textColor="#696969"
             android:gravity="left"/>
 
     </LinearLayout>
@@ -56,7 +60,9 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
             android:text="Points:"
+            android:textStyle="bold"
             android:textSize="18sp"
+            android:textColor="#696969"
             android:gravity="center"/>
 
         <TextView
@@ -64,9 +70,59 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
+            android:textColor="#696969"
             android:text="100"
             android:textSize="22sp"
             android:gravity="left"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="#696969"
+        android:gravity="center"
+        android:text="Share your match results:"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/face"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/plus"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1">
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/twitter"/>
+        </LinearLayout>
 
     </LinearLayout>
 

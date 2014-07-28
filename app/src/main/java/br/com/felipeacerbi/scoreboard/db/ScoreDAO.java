@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class ScoreDAO extends SQLiteOpenHelper{
 
     }
 
-    public long insertScore(Score score) {
+    public void insertScore(Score score) {
 
         ContentValues cv = new ContentValues();
 
@@ -64,9 +65,8 @@ public class ScoreDAO extends SQLiteOpenHelper{
         cv.put("gameId", score.getGameId());
         cv.put("roundId", score.getRoundId());
 
-        long id = getWritableDatabase().insert(TABLE_SCORES, null, cv);
+        getWritableDatabase().insert(TABLE_SCORES, null, cv);
 
-        return id;
     }
 
     public void deleteRoundScores(long roundId) {
@@ -128,7 +128,6 @@ public class ScoreDAO extends SQLiteOpenHelper{
                 score.setValue(c.getInt(c.getColumnIndex("value")));
                 score.setGameId(c.getLong(c.getColumnIndex("gameId")));
                 score.setRoundId(c.getLong(c.getColumnIndex("roundId")));
-
                 scores.add(score);
 
             } while (c.moveToNext());

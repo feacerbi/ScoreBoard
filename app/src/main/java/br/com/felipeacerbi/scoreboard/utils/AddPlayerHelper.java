@@ -29,16 +29,17 @@ public class AddPlayerHelper {
 	private EditText name;
 	private ImageView photo;
 	private String path;
-	private long id = 0;
+	private long id;
 	private Button but;
     private RadioButton maleGender;
     private RadioButton femaleGender;
 
     public AddPlayerHelper(AddPlayerActivity apa) {
 		 
-		 this.apa = apa;
+		this.apa = apa;
 		 
-		 getInfo();
+		getInfo();
+        getModify();
 		
 	}
 	 
@@ -71,15 +72,13 @@ public class AddPlayerHelper {
 		});
 		
 	}
-	
-	public boolean getModify() {
-		
-		boolean isNew = false;
-		
+
+	public void getModify() {
+
 		Player player = (Player) apa.getIntent().getSerializableExtra("player");
-		
+
 		if(player != null) {
-			
+
 			id = player.getId();
 			name.setText(player.getName());
 			if(player.getPhotoPath() != null) {
@@ -87,19 +86,13 @@ public class AddPlayerHelper {
 				photo.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true));
 				path = player.getPhotoPath();
 			}
-			
-		} else {
-			isNew = true;
+
 		}
-		
-		return isNew;
-		
 	}
 	
 	public Player getPlayer() {
 
         Player player = new Player();
-        player.setId(id);
         player.setName(name.getText().toString());
         player.setPhotoPath(path);
 		
@@ -108,9 +101,9 @@ public class AddPlayerHelper {
 	}
 	
 	public String getPath() {
-		
+
 		return path;
-		
+
 	}
 
 

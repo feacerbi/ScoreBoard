@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,7 @@ public class PlayersListAdapter extends BaseAdapter {
     }
 
     public void selectView(int position, boolean value) {
+
         if (value)
             selectedIds.put(position, value);
         else
@@ -115,7 +117,7 @@ public class PlayersListAdapter extends BaseAdapter {
 
     public void clearViews() {
         for(int i = 0; i < getCount(); i++) {
-            selectedIds.put(i, false);
+            selectedIds.delete(i);
         }
 
         notifyDataSetChanged();

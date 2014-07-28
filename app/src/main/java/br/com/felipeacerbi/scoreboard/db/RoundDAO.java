@@ -59,26 +59,26 @@ public class RoundDAO extends SQLiteOpenHelper{
 
     public long insertRound(Round round) {
 
-        scoreDAO = new ScoreDAO(context);
-
-        for(Score score : round.getScoresList()) {
-            score.setRoundId(round.getId());
-            scoreDAO.insertScore(score);
-        }
-
-        for(Score subScore : round.getSubScoresList()) {
-            subScore.setRoundId(round.getId());
-            scoreDAO.insertScore(subScore);
-        }
-
-        scoreDAO.close();
-
         ContentValues cv = new ContentValues();
 
         cv.put("scoreTitle", round.getScoreTitle());
         cv.put("gameId", round.getGame().getId());
 
         long id = getWritableDatabase().insert(TABLE_ROUNDS, null, cv);
+
+        scoreDAO = new ScoreDAO(context);
+
+        for(Score score : round.getScoresList()) {
+            score.setRoundId(id);
+            scoreDAO.insertScore(score);
+        }
+
+        for(Score subScore : round.getSubScoresList()) {
+            subScore.setRoundId(id);
+            scoreDAO.insertScore(subScore);
+        }
+
+        scoreDAO.close();
 
         return id;
 
@@ -92,32 +92,6 @@ public class RoundDAO extends SQLiteOpenHelper{
 
         String[] args = { String.valueOf(round.getId()) };
         getWritableDatabase().delete(TABLE_ROUNDS, "id=?", args);
-
-    }
-
-    public void updateRound(Round round) {
-
-        scoreDAO = new ScoreDAO(context);
-        scoreDAO.deleteRoundScores(round.getId());
-
-        for(Score score : round.getScoresList()) {
-            scoreDAO.insertScore(score);
-        }
-
-        for(Score subScore : round.getSubScoresList()) {
-            scoreDAO.insertScore(subScore);
-        }
-
-        scoreDAO.close();
-
-        ContentValues cv = new ContentValues();
-
-        cv.put("scoreTitle", round.getScoreTitle());
-        cv.put("gameId", round.getGame().getId());
-
-        String[] args = { String.valueOf(round.getId()) };
-
-        getWritableDatabase().update(TABLE_ROUNDS, cv, "id=?", args);
 
     }
 

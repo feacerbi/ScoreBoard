@@ -96,6 +96,7 @@ public class NewGamePlayersAdapter extends BaseAdapter {
                     case 0:
                         vh.playerName.setText(vh.playerTitle.getText());
                         addNewPlayer(vh);
+                        Log.i("Name", vh.player.getName());
                         break;
                     case 1:
                         customPlayerNameDialog(vh);
@@ -169,16 +170,13 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         final EditText newName = new EditText(activity);
-        newName.setInputType(EditorInfo.TYPE_TEXT_FLAG_CAP_WORDS);
         alertDialog.setView(newName);
         alertDialog.setTitle("Custom Name");
         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                vh.playerName.setText(newName.getText().toString());
-                vh.player.setName(newName.getText().toString());
-                players.get(vh.viewPosition).setName(newName.getText().toString());
-                Log.i("Button", "pos");
+                addNewPlayer(vh, newName.getText().toString());
+                vh.playerName.setText(vh.player.getName());
             }
         });
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -211,6 +209,15 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
         Player player = new Player();
         player.setName(vh.playerTitle.getText().toString());
+        vh.player = player;
+        players.set(vh.viewPosition, vh.player);
+
+    }
+
+    public void addNewPlayer(ViewHolder vh, String name) {
+
+        Player player = new Player();
+        player.setName(name);
         vh.player = player;
         players.set(vh.viewPosition, vh.player);
 

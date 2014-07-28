@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Player implements Serializable {
 
-    private long id = 0;
+    private long id;
     private String name;
     private String photoPath;
     private int score;

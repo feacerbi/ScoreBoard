@@ -53,12 +53,11 @@ public class PlayersFragment extends Fragment {
         modifyPlayersListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+
                 Player player = (Player) listView.getItemAtPosition(pos);
 
                 Intent intent = new Intent(getActivity(), AddPlayerActivity.class);
-
                 intent.putExtra("player", player);
-
                 startActivity(intent);
             }
         };

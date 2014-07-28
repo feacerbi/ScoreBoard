@@ -16,6 +16,13 @@ public class Round implements Serializable {
     private Game game;
 
     public Round(int gameMode) {
+
+        startScores(gameMode);
+
+    }
+
+    public void startScores(int gameMode) {
+
         scores = new ArrayList<Score>();
         subScores = new ArrayList<Score>();
 
@@ -33,22 +40,15 @@ public class Round implements Serializable {
                 }
                 break;
         }
+
     }
 
     public Score getScore(int position) {
         return scores.get(position);
     }
 
-    public void setScore(int position, Score score) {
-        scores.set(position, score);
-    }
-
     public Score getSubScore(int position) {
         return subScores.get(position);
-    }
-
-    public void setSubScore(int position, Score subScore) {
-        subScores.set(position, subScore);
     }
 
     public String getScoreTitle() {

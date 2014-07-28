@@ -59,6 +59,13 @@ public class GameDAO extends SQLiteOpenHelper{
 
     public long insertGame(Game game) {
 
+        ContentValues cv = new ContentValues();
+
+        cv.put("winScore", game.getWinScore());
+        cv.put("gameMode", game.getGameMode());
+
+        long id = getWritableDatabase().insert(TABLE_GAMES, null, cv);
+
         PlayerDAO playerDAO = new PlayerDAO(context);
         CompetitorDAO competitorDAO = new CompetitorDAO(context);
 
@@ -66,28 +73,23 @@ public class GameDAO extends SQLiteOpenHelper{
             if(!playerDAO.idExists(player)) {
                 player.setId(playerDAO.insertPlayer(player));
             }
-            Competitor competitor = new Competitor(game.getId(), player.getId());
+            Competitor competitor = new Competitor(id, player.getId());
             competitorDAO.insertCompetitor(competitor);
         }
 
         ScoreDAO scoreDAO = new ScoreDAO(context);
 
         for(Score totalScore : game.getTotalScoresList()) {
+            totalScore.setGameId(id);
             scoreDAO.insertScore(totalScore);
         }
 
         RoundDAO roundDAO = new RoundDAO(context);
 
         for(Round round : game.getRoundsList()) {
+            round.setGame(game);
             roundDAO.insertRound(round);
         }
-
-        ContentValues cv = new ContentValues();
-
-        cv.put("winScore", game.getWinScore());
-        cv.put("gameMode", game.getGameMode());
-
-        long id = getWritableDatabase().insert(TABLE_GAMES, null, cv);
 
         playerDAO.close();
         competitorDAO.close();
@@ -142,6 +144,7 @@ public class GameDAO extends SQLiteOpenHelper{
         scoreDAO.deleteGameScores(game.getId());
 
         for(Score totalScore : game.getTotalScoresList()) {
+            totalScore.setGameId(game.getId());
             scoreDAO.insertScore(totalScore);
         }
 
@@ -154,6 +157,7 @@ public class GameDAO extends SQLiteOpenHelper{
         }
 
         for(Round round : game.getRoundsList()) {
+            round.setGame(game);
             round.setId(roundDAO.insertRound(round));
         }
 
@@ -199,6 +203,7 @@ public class GameDAO extends SQLiteOpenHelper{
 
             do {
 
+                int i = 0;
                 Game game = new Game(c.getInt(c.getColumnIndex("gameMode")));
 
                 game.setId(c.getLong(c.getColumnIndex("id")));
@@ -206,9 +211,8 @@ public class GameDAO extends SQLiteOpenHelper{
                 game.setTotalScores(scoreDAO.listGameScores(game.getId(), Score.SCORE_TOTAL));
                 game.setRounds(roundDAO.listRounds(game));
                 for(Competitor competitor : competitorDAO.listCompetitors(game.getId())) {
-                    game.getPlayersList().add(playerDAO.getPlayer(competitor.getPlayerId()));
+                    game.getPlayersList().set(i++, playerDAO.getPlayer(competitor.getPlayerId()));
                 }
-
                 games.add(game);
 
             } while (c.moveToNext());

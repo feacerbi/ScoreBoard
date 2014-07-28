@@ -113,7 +113,6 @@ public class PlayerDAO extends SQLiteOpenHelper{
     }
 
     public boolean idExists(Player player) {
-
         Cursor c = getReadableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_PLAYERS + " WHERE id=" + player.getId() + ";", null);
 

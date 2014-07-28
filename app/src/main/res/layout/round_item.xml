@@ -12,6 +12,8 @@
         android:layout_weight="0.1"
         android:layout_marginLeft="10dp"
         android:text="Round 1 Score:"
+        android:textColor="#696969"
+        android:textStyle="bold"
         android:textSize="18sp"
         android:gravity="center"/>
 
@@ -28,6 +30,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.1"
             android:text="1500"
+            android:textColor="#696969"
+            android:textStyle="bold"
             android:textSize="20sp"
             android:gravity="center"/>
 
@@ -36,6 +40,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.1"
+            android:textColor="#696969"
+            android:textStyle="bold"
             android:text="1000"
             android:textSize="20sp"
             android:gravity="center"/>
@@ -48,6 +54,7 @@
         android:layout_weight="0.1"
         android:layout_marginLeft="10dp"
         android:text="Sub Score:"
+        android:textColor="#696969"
         android:textSize="12sp"
         android:gravity="center"/>
 
@@ -63,6 +70,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.1"
+            android:textColor="#696969"
             android:text="2000"
             android:textSize="12sp"
             android:gravity="center"/>
@@ -72,6 +80,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.1"
+            android:textColor="#696969"
             android:text="1500"
             android:textSize="12sp"
             android:gravity="center"/>

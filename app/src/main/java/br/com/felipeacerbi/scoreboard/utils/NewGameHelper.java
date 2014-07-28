@@ -35,6 +35,7 @@ public class NewGameHelper {
         players = new ArrayList<Player>();
 
         getInfo();
+        getModify();
 
     }
 
@@ -84,6 +85,11 @@ public class NewGameHelper {
 
     }
 
+    private void getModify() {
+        // TODO Edit Game information
+    }
+
+
     public void fillPlayers(int numberOfPlayers) {
 
         players = new ArrayList<Player>();
@@ -95,7 +101,7 @@ public class NewGameHelper {
         }
         adapter = new NewGamePlayersAdapter(nga, players);
         newPlayersList.setAdapter(adapter);
-        newPlayersList.smoothScrollToPosition(newPlayersList.getMaxScrollAmount());
+        newPlayersList.smoothScrollToPosition(numberOfPlayers - 1);
 
     }
 
@@ -103,7 +109,7 @@ public class NewGameHelper {
 
         Game game = new Game(gameMode);
         for(int n = 0; n < gameMode; n++) {
-            game.getPlayersList().add(players.get(n));
+            game.getPlayersList().set(n, players.get(n));
         }
         game.setWinScore(Integer.parseInt(winScoreView.getText().toString()));
 

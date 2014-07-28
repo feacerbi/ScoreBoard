@@ -1,7 +1,10 @@
 package br.com.felipeacerbi.scoreboard.tasks;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import br.com.felipeacerbi.scoreboard.activities.MainScoreActivity;
 import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
@@ -17,6 +20,7 @@ import br.com.felipeacerbi.scoreboard.models.Player;
 public class SaveGameTask extends AsyncTask<Game, Void, Void> {
 
     MainScoreActivity msa;
+    private ProgressDialog pdia;
 
     public SaveGameTask(MainScoreActivity msa) {
 
@@ -26,10 +30,18 @@ public class SaveGameTask extends AsyncTask<Game, Void, Void> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        pdia = new ProgressDialog(msa);
+        pdia.setMessage("Saving Game...");
+        pdia.show();
+    }
+
+    @Override
     protected Void doInBackground(Game... games) {
 
         GameDAO gameDAO = new GameDAO(msa);
-        CompetitorDAO competitorDAO = new CompetitorDAO(msa);
 
         if(gameDAO.idExists(games[0])) {
             gameDAO.updateGame(games[0]);
@@ -44,6 +56,9 @@ public class SaveGameTask extends AsyncTask<Game, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+
+        pdia.dismiss();
+
         msa.getApp().unregister(this);
     }
 }

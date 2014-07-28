@@ -33,8 +33,6 @@ public class GamesFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private ListView listView;
-    private GameDAO gdao;
-    private GamesListAdapter gadapter;
     private AdapterView.OnItemClickListener loadGamesListener;
 
     public static GamesFragment newInstance(int sectionNumber) {

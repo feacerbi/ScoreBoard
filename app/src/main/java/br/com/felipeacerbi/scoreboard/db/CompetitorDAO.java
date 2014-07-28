@@ -51,16 +51,14 @@ public class CompetitorDAO extends SQLiteOpenHelper{
 
     }
 
-    public long insertCompetitor(Competitor competitor) {
+    public void insertCompetitor(Competitor competitor) {
 
         ContentValues cv = new ContentValues();
 
         cv.put("gameId", competitor.getGameId());
         cv.put("playerId", competitor.getPlayerId());
 
-        long id = getWritableDatabase().insert(TABLE_COMPETITORS, null, cv);
-
-        return id;
+        getWritableDatabase().insert(TABLE_COMPETITORS, null, cv);
     }
 
     public void deleteCompetitors(long gameId) {

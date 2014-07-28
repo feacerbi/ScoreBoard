@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class CurrentMatchFragment extends Fragment {
     private GameDAO gameDAO;
     private TextView winscore;
     private View addBar;
+    private ImageView shadow;
 
     public CurrentMatchFragment() {}
 
@@ -74,23 +76,22 @@ public class CurrentMatchFragment extends Fragment {
 
     public void addRound() {
 
-        Round round = new Round(getGame().getGameMode());
+            Round round = new Round(getGame().getGameMode());
 
-        round.setScoreTitle("Round " + String.valueOf(getGame().getRounds() + 1) + " Score");
-        round.getScore(0).setValue(Integer.parseInt(inputScore1.getText().toString()));
-        round.getScore(1).setValue(Integer.parseInt(inputScore2.getText().toString()));
-        round.getSubScore(0).setValue(getGame().getTotalScore(0).getValue() + round.getScore(0).getValue());
-        round.getSubScore(1).setValue(getGame().getTotalScore(1).getValue() + round.getScore(1).getValue());
-        round.setGame(getGame());
+            round.setScoreTitle("Round " + String.valueOf(getGame().getRounds() + 1) + " Score");
+            round.getScore(0).setValue(Integer.parseInt(inputScore1.getText().toString()));
+            round.getScore(1).setValue(Integer.parseInt(inputScore2.getText().toString()));
+            round.getSubScore(0).setValue(getGame().getTotalScore(0).getValue() + round.getScore(0).getValue());
+            round.getSubScore(1).setValue(getGame().getTotalScore(1).getValue() + round.getScore(1).getValue());
+            round.setGame(getGame());
 
-        getGame().addRound(round);
+            getGame().addRound(round);
 
-        sla.notifyDataSetChanged();
+            sla.notifyDataSetChanged();
 
-        updateScore();
-
-        new SaveGameTask((MainScoreActivity) getActivity()).execute(getGame());
-
+            if(updateScore()) {
+                new SaveGameTask((MainScoreActivity) getActivity()).execute(getGame());
+            }
     }
 
     public void removeRound() {
@@ -124,7 +125,7 @@ public class CurrentMatchFragment extends Fragment {
         }
     }
 
-    public void updateScore() {
+    public boolean updateScore() {
 
         switch(getGame().getGameMode()) {
             case Game.GAME_MODE_1X1:
@@ -143,7 +144,7 @@ public class CurrentMatchFragment extends Fragment {
         winscore.setText(String.valueOf(getGame().getWinScore()));
         scoreList.smoothScrollToPosition(getGame().getRounds());
 
-        checkWinner();
+        return checkWinner();
 
     }
 
@@ -159,7 +160,9 @@ public class CurrentMatchFragment extends Fragment {
 
     }
 
-    public void checkWinner() {
+    public boolean checkWinner() {
+
+        boolean up = true;
 
         List<Player> tempPlayers = getGame().getPlayersList();
         List<Score> totalScores = getGame().getTotalScoresList();
@@ -168,6 +171,7 @@ public class CurrentMatchFragment extends Fragment {
         switch (getGame().getGameMode()) {
             case Game.GAME_MODE_1X1:
                 if(checkWinScore(totalScores)) {
+                    up = false;
                     if(totalScores.get(0).getValue() > totalScores.get(1).getValue()) {
                         winnerList.add(tempPlayers.get(0));
                         setWinner(winnerList, 100, false);
@@ -182,6 +186,7 @@ public class CurrentMatchFragment extends Fragment {
                 break;
             case Game.GAME_MODE_2X2:
                 if(checkWinScore(totalScores)) {
+                    up = false;
                     if(totalScores.get(0).getValue() > totalScores.get(1).getValue()) {
                         winnerList.add(tempPlayers.get(0));
                         winnerList.add(tempPlayers.get(1));
@@ -197,6 +202,8 @@ public class CurrentMatchFragment extends Fragment {
                 }
                 break;
         }
+
+        return up;
     }
 
     public void setWinner(List<Player> players, int points, boolean isDraw) {
@@ -209,7 +216,11 @@ public class CurrentMatchFragment extends Fragment {
 
         for(Player player : players) {
             new AddPointsTask((MainScoreActivity) getActivity(), points).execute(player);
-            names += player.getName() + "\n";
+            if(names.isEmpty())
+                names = player.getName();
+            else {
+                names += "\n" + player.getName();
+            }
         }
 
         TextView pointsText = (TextView) scoreList.findViewById(R.id.points);
@@ -218,7 +229,7 @@ public class CurrentMatchFragment extends Fragment {
         TextView winnerName = (TextView) scoreList.findViewById(R.id.winner_name);
         winnerName.setText(isDraw ? "Draw" : names);
 
-        scoreList.smoothScrollToPosition(getGame().getRounds() + 1);
+        scoreList.setSelection(scoreList.getCount());
 
         List<Game> games = new ArrayList<Game>();
         games.add(getGame());
@@ -236,7 +247,6 @@ public class CurrentMatchFragment extends Fragment {
 
         if(getGame() != null) {
             rootView = setLayout(getGame().getGameMode());
-            createGame();
         }
 
         return rootView;
@@ -249,39 +259,21 @@ public class CurrentMatchFragment extends Fragment {
         if(getGame() != null) {
             sla = new ScoreListAdapter(getActivity(), R.layout.round_item, getGame().getRoundsList());
             scoreList.setAdapter(sla);
-            updateScore();
             enable();
+            updateScore();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
     }
 
     public void disable() {
         addBar.setVisibility(View.INVISIBLE);
+        shadow.setVisibility(View.INVISIBLE);
         emptyList.setText("Start a new game on the above menu.");
-//        inputScore1.setEnabled(false);
-//        inputScore1.setHintTextColor(Color.LTGRAY);
-//        inputScore1.setTextColor(Color.LTGRAY);
-//        inputScore2.setEnabled(false);
-//        inputScore2.setHintTextColor(Color.LTGRAY);
-//        inputScore2.setTextColor(Color.LTGRAY);
-//        addButton.setEnabled(false);
     }
 
     public void enable() {
         addBar.setVisibility(View.VISIBLE);
+        shadow.setVisibility(View.VISIBLE);
         emptyList.setText("Add a round score on the bar below.");
-//        inputScore1.setEnabled(true);
-//        inputScore1.setHintTextColor(Color.WHITE);
-//        inputScore1.setTextColor(Color.WHITE);
-//        inputScore2.setEnabled(true);
-//        inputScore2.setHintTextColor(Color.WHITE);
-//        inputScore2.setTextColor(Color.WHITE);
-//        addButton.setEnabled(true);
     }
 
     @Override
@@ -292,19 +284,8 @@ public class CurrentMatchFragment extends Fragment {
             getFragmentManager().beginTransaction()
                     .replace(R.id.container, CurrentMatchFragment.newInstance(1))
                     .commit();
+            new SaveGameTask((MainScoreActivity) getActivity()).execute(getGame());
         }
-    }
-
-    public void createGame() {
-
-        sla = new ScoreListAdapter(getActivity(), R.layout.round_item, getGame().getRoundsList());
-        scoreList.setAdapter(sla);
-
-        new SaveGameTask((MainScoreActivity) getActivity()).execute(getGame());
-
-        updateScore();
-        enable();
-
     }
 
     public Game getGame() {
@@ -324,7 +305,7 @@ public class CurrentMatchFragment extends Fragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(inputScore1.getText() != null && inputScore2.getText() != null) {
+                        if(!inputScore1.getText().toString().isEmpty() && !inputScore2.getText().toString().isEmpty()) {
                             addRound();
                         } else {
                             Toast.makeText(getActivity(), "Input all scores", Toast.LENGTH_SHORT).show();
@@ -343,7 +324,7 @@ public class CurrentMatchFragment extends Fragment {
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(inputScore1.getText() != null && inputScore2.getText() != null) {
+                        if(!inputScore1.getText().toString().isEmpty() && !inputScore2.getText().toString().isEmpty()) {
                             addRound();
                         } else {
                             Toast.makeText(getActivity(), "Input all scores", Toast.LENGTH_SHORT).show();
@@ -352,8 +333,6 @@ public class CurrentMatchFragment extends Fragment {
                 });
                 break;
         }
-
-
 
         return rootView;
 
@@ -372,6 +351,7 @@ public class CurrentMatchFragment extends Fragment {
         roundNumber = (TextView) rootView.findViewById(R.id.round_number);
         winscore = (TextView) rootView.findViewById(R.id.winscore);
         emptyList = (TextView) rootView.findViewById(R.id.empty_text);
+        shadow = (ImageView) rootView.findViewById(R.id.add_bar_shadow);
         addBar = rootView.findViewById(R.id.add_bar);
 
         scoreList.setEmptyView(emptyList);
@@ -401,7 +381,11 @@ public class CurrentMatchFragment extends Fragment {
                 startActivityForResult(newGame, NEW_GAME);
                 return  true;
             case R.id.action_undo:
-                removeRound();
+                if(addBar.getVisibility() != View.INVISIBLE) {
+                    removeRound();
+                } else {
+                    Toast.makeText(getActivity(), "Game already ended", Toast.LENGTH_SHORT).show();
+                }
                 return true;
         }
 

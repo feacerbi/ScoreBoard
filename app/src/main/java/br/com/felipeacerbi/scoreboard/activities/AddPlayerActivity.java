@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
+import br.com.felipeacerbi.scoreboard.tasks.AddPlayerTask;
 import br.com.felipeacerbi.scoreboard.utils.AddPlayerHelper;
 import br.com.felipeacerbi.scoreboard.db.PlayerDAO;
 import br.com.felipeacerbi.scoreboard.R;
@@ -30,18 +32,11 @@ public class AddPlayerActivity extends ActionBarActivity {
 
         playerDAO = new PlayerDAO(this);
 
-        isNew = aph.getModify();
     }
 
     public void createNew() {
 
-        if (isNew) {
-            playerDAO.insertPlayer(aph.getPlayer());
-        } else {
-            playerDAO.updatePlayer(aph.getPlayer());
-        }
-
-        playerDAO.close();
+        new AddPlayerTask(this).execute(aph.getPlayer());
 
         finish();
 
@@ -52,6 +47,10 @@ public class AddPlayerActivity extends ActionBarActivity {
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Add Player");
+    }
+
+    public ScoreBoardApplication getApp() {
+        return (ScoreBoardApplication) getApplication();
     }
 
     @Override

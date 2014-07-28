@@ -36,7 +36,7 @@ public class Game implements Serializable {
     public void refreshTotal() {
 
         for(int i = 0; i < getTotalScores(); i++) {
-            setTotalScore(i, new Score(getGameMode()));
+            getTotalScore(i).setValue(0);
         }
 
         for(Round round : rounds) {
@@ -99,16 +99,8 @@ public class Game implements Serializable {
         return players.get(position);
     }
 
-    public void setPlayer(int position, Player player) {
-        players.set(position, player);
-    }
-
     public Score getTotalScore(int position) {
         return totalScores.get(position);
-    }
-
-    public void setTotalScore(int position, Score totalScore) {
-        totalScores.set(position, totalScore);
     }
 
     public List<Round> getRoundsList() {
@@ -125,7 +117,7 @@ public class Game implements Serializable {
 
     public List<Score> getTotalScoresList() { return totalScores; }
 
-    public void setTotalScores(List<Score> scores) { this.totalScores = totalScores; }
+    public void setTotalScores(List<Score> totalScores) { this.totalScores = totalScores; }
 
     public long getId() {
         return id;
@@ -145,10 +137,6 @@ public class Game implements Serializable {
 
     public int getGameMode() {
         return gameMode;
-    }
-
-    public void setGameMode(int gameMode) {
-        this.gameMode = gameMode;
     }
 
     @Override

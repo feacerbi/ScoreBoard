@@ -1,6 +1,7 @@
 package br.com.felipeacerbi.scoreboard.adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,7 +124,7 @@ public class GamesListAdapter extends BaseAdapter {
 
     public void clearViews() {
         for(int i = 0; i < getCount(); i++) {
-            selectedIds.put(i, false);
+            selectedIds.delete(i);
         }
 
         notifyDataSetChanged();
