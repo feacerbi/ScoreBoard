@@ -19,8 +19,6 @@ import br.com.felipeacerbi.scoreboard.R;
 public class AddPlayerActivity extends ActionBarActivity {
 
     private AddPlayerHelper aph;
-    private PlayerDAO playerDAO;
-    private boolean isNew;
     public static final int TAKE_PICTURE = 100;
 
     @Override
@@ -29,8 +27,6 @@ public class AddPlayerActivity extends ActionBarActivity {
         setContentView(R.layout.activity_add_player);
 
         aph = new AddPlayerHelper(this);
-
-        playerDAO = new PlayerDAO(this);
 
     }
 

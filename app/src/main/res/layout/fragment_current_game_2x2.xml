@@ -35,16 +35,30 @@
                 android:textSize="18sp"
                 android:gravity="center_horizontal"/>
 
-            <TextView
-                android:id="@+id/name_2"
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
-                android:text="&amp; Player 2"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="&amp; "
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/name_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Player 2"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/score_1"
@@ -91,15 +105,15 @@
 
             <TextView
                 android:id="@+id/winscore"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="3000"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 android:maxLines="1"
-                android:gravity="center_horizontal|bottom"
-                android:layout_gravity="center_horizontal|bottom"/>/>
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"/>/>
 
         </LinearLayout>
 
@@ -123,16 +137,30 @@
                 android:textSize="18sp"
                 android:gravity="center_horizontal"/>
 
-            <TextView
-                android:id="@+id/name_4"
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
-                android:text="&amp; Player 4"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="&amp; "
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/name_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Player 4"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/score_2"

@@ -57,13 +57,26 @@ public class PlayerDAO extends SQLiteOpenHelper{
 
     public long insertPlayer(Player player) {
 
-        ContentValues cv = new ContentValues();
+        long id;
 
-        cv.put("name", player.getName());
-        cv.put("score", player.getScore());
-        cv.put("photoPath", player.getPhotoPath());
+        if(!idExists(player)) {
+            if(!nameExists(player)) {
+                ContentValues cv = new ContentValues();
 
-        long id = getWritableDatabase().insert(TABLE_PLAYERS, null, cv);
+                cv.put("name", player.getName());
+                cv.put("score", player.getScore());
+                cv.put("photoPath", player.getPhotoPath());
+
+                id = getWritableDatabase().insert(TABLE_PLAYERS, null, cv);
+            } else {
+                Player temp = getPlayer(player.getName());
+                id = temp.getId();
+                updatePlayer(temp);
+            }
+        } else {
+            id = player.getId();
+            updatePlayer(player);
+        }
 
         return id;
     }
@@ -105,9 +118,27 @@ public class PlayerDAO extends SQLiteOpenHelper{
             player.setPhotoPath(c.getString(c.getColumnIndex("photoPath")));
 
             return player;
-
         }
+        return null;
 
+    }
+
+    public Player getPlayer(String name) {
+
+        Cursor c = getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_PLAYERS + " WHERE name='" + name + "';", null);
+
+        if(c.moveToFirst()) {
+
+            Player player = new Player();
+
+            player.setId(c.getLong(c.getColumnIndex("id")));
+            player.setName(name);
+            player.setScore(c.getInt(c.getColumnIndex("score")));
+            player.setPhotoPath(c.getString(c.getColumnIndex("photoPath")));
+
+            return player;
+        }
         return null;
 
     }
@@ -115,6 +146,16 @@ public class PlayerDAO extends SQLiteOpenHelper{
     public boolean idExists(Player player) {
         Cursor c = getReadableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_PLAYERS + " WHERE id=" + player.getId() + ";", null);
+
+        if(c.moveToFirst()) return true;
+
+        return false;
+
+    }
+
+    public boolean nameExists(Player player) {
+        Cursor c = getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_PLAYERS + " WHERE name='" + player.getName() + "';", null);
 
         if(c.moveToFirst()) return true;
 

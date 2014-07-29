@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,9 +71,8 @@ public class GameDAO extends SQLiteOpenHelper{
         CompetitorDAO competitorDAO = new CompetitorDAO(context);
 
         for(Player player : game.getPlayersList()) {
-            if(!playerDAO.idExists(player)) {
-                player.setId(playerDAO.insertPlayer(player));
-            }
+            player.setId(playerDAO.insertPlayer(player));
+            
             Competitor competitor = new Competitor(id, player.getId());
             competitorDAO.insertCompetitor(competitor);
         }
@@ -211,7 +211,8 @@ public class GameDAO extends SQLiteOpenHelper{
                 game.setTotalScores(scoreDAO.listGameScores(game.getId(), Score.SCORE_TOTAL));
                 game.setRounds(roundDAO.listRounds(game));
                 for(Competitor competitor : competitorDAO.listCompetitors(game.getId())) {
-                    game.getPlayersList().set(i++, playerDAO.getPlayer(competitor.getPlayerId()));
+                    Player temp = playerDAO.getPlayer(competitor.getPlayerId());
+                    game.getPlayersList().set(i++, temp);
                 }
                 games.add(game);
 
