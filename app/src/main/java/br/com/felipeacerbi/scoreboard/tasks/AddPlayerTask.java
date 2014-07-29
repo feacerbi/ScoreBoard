@@ -28,11 +28,7 @@ public class AddPlayerTask extends AsyncTask<Player, Void, Void> {
 
         PlayerDAO playerDAO = new PlayerDAO(apa);
 
-        if(playerDAO.idExists(players[0])) {
-            playerDAO.updatePlayer(players[0]);
-        } else {
-            players[0].setId(playerDAO.insertPlayer(players[0]));
-        }
+        players[0].setId(playerDAO.insertPlayer(players[0]));
 
         return null;
     }

@@ -96,7 +96,6 @@ public class NewGamePlayersAdapter extends BaseAdapter {
                     case 0:
                         vh.playerName.setText(vh.playerTitle.getText());
                         addNewPlayer(vh);
-                        Log.i("Name", vh.player.getName());
                         break;
                     case 1:
                         customPlayerNameDialog(vh);
