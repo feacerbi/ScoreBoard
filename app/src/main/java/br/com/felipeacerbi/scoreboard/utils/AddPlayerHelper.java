@@ -93,6 +93,7 @@ public class AddPlayerHelper {
 	public Player getPlayer() {
 
         Player player = new Player();
+        player.setId(id);
         player.setName(name.getText().toString());
         player.setPhotoPath(path);
 		

@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.felipeacerbi.scoreboard.R;
+import br.com.felipeacerbi.scoreboard.activities.AddPlayerActivity;
 import br.com.felipeacerbi.scoreboard.activities.NewGameActivity;
 import br.com.felipeacerbi.scoreboard.adapters.ScoreListAdapter;
 import br.com.felipeacerbi.scoreboard.activities.MainScoreActivity;
@@ -62,6 +64,7 @@ public class CurrentMatchFragment extends Fragment {
     private TextView winscore;
     private View addBar;
     private ImageView shadow;
+    private View scoreCard;
 
     public CurrentMatchFragment() {}
 
@@ -266,14 +269,27 @@ public class CurrentMatchFragment extends Fragment {
 
     public void disable() {
         addBar.setVisibility(View.INVISIBLE);
+        scoreCard.setEnabled(false);
         shadow.setVisibility(View.INVISIBLE);
         emptyList.setText("Start a new game on the above menu.");
+
+        scoreCard.setOnClickListener(null);
     }
 
     public void enable() {
         addBar.setVisibility(View.VISIBLE);
+        scoreCard.setEnabled(true);
         shadow.setVisibility(View.VISIBLE);
         emptyList.setText("Add a round score on the bar below.");
+
+        scoreCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newGame = new Intent(getActivity(), NewGameActivity.class);
+                newGame.putExtra("game", getGame());
+                startActivityForResult(newGame, NEW_GAME);
+            }
+        });
     }
 
     @Override
@@ -353,6 +369,7 @@ public class CurrentMatchFragment extends Fragment {
         emptyList = (TextView) rootView.findViewById(R.id.empty_text);
         shadow = (ImageView) rootView.findViewById(R.id.add_bar_shadow);
         addBar = rootView.findViewById(R.id.add_bar);
+        scoreCard = rootView.findViewById(R.id.score_card);
 
         scoreList.setEmptyView(emptyList);
 

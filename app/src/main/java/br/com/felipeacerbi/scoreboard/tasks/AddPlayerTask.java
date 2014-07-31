@@ -30,6 +30,8 @@ public class AddPlayerTask extends AsyncTask<Player, Void, Void> {
 
         players[0].setId(playerDAO.insertPlayer(players[0]));
 
+        playerDAO.close();
+
         return null;
     }
 

@@ -1,5 +1,6 @@
 package br.com.felipeacerbi.scoreboard.utils;
 
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ public class NewGameHelper {
     private int gameMode;
     private Spinner gameSkins;
     private NewGamePlayersAdapter adapter;
+    private Game modifiedGame;
 
     public NewGameHelper(NewGameActivity nga) {
 
@@ -35,7 +38,10 @@ public class NewGameHelper {
         players = new ArrayList<Player>();
 
         getInfo();
-        getModify();
+
+        if(getModify()) {
+            ((TextView) nga.getActionBar().getCustomView().findViewById(R.id.start_button)).setText("MODIFY");
+        }
 
     }
 
@@ -43,7 +49,7 @@ public class NewGameHelper {
 
         newPlayersList = (ListView) nga.findViewById(R.id.new_players_list);
         newPlayersList.addHeaderView(nga.getLayoutInflater().inflate(R.layout.activity_new_game_header, null));
-        adapter = new NewGamePlayersAdapter(nga, players);
+        adapter = new NewGamePlayersAdapter(nga, players, true);
         newPlayersList.setAdapter(adapter);
 
         gameSkins = (Spinner) newPlayersList.findViewById(R.id.game_skins);
@@ -85,10 +91,30 @@ public class NewGameHelper {
 
     }
 
-    private void getModify() {
-        // TODO Edit Game information
-    }
+    public boolean getModify() {
 
+        Game game = (Game) nga.getIntent().getSerializableExtra("game");
+
+        if(game != null) {
+            modifiedGame = game;
+            switch(game.getGameMode()) {
+                case Game.GAME_MODE_1X1:
+                    gameModes.setSelection(0);
+                    gameModes.setEnabled(false);
+                    break;
+                case Game.GAME_MODE_2X2:
+                    gameModes.setSelection(1);
+                    gameModes.setEnabled(false);
+                    break;
+            }
+            winScoreView.setText(String.valueOf(game.getWinScore()));
+            modifyPlayers(game.getPlayersList());
+
+            return true;
+        }
+
+        return false;
+    }
 
     public void fillPlayers(int numberOfPlayers) {
 
@@ -99,21 +125,31 @@ public class NewGameHelper {
             newPlayer.setName("Player " + (i + 1));
             players.add(newPlayer);
         }
-        adapter = new NewGamePlayersAdapter(nga, players);
+        adapter = new NewGamePlayersAdapter(nga, players, true);
         newPlayersList.setAdapter(adapter);
-        newPlayersList.smoothScrollToPosition(numberOfPlayers - 1);
+        newPlayersList.setSelection(newPlayersList.getCount());
+
+    }
+
+    public void modifyPlayers(List<Player> players) {
+
+        adapter = new NewGamePlayersAdapter(nga, players, false);
+        newPlayersList.setAdapter(adapter);
+        newPlayersList.setSelection(newPlayersList.getCount());
 
     }
 
     public Game getGame() {
 
-        Game game = new Game(gameMode);
-        for(int n = 0; n < gameMode; n++) {
-            game.getPlayersList().set(n, players.get(n));
+        if(modifiedGame == null) {
+            modifiedGame = new Game(gameMode);
         }
-        game.setWinScore(Integer.parseInt(winScoreView.getText().toString()));
+        for(int n = 0; n < gameMode; n++) {
+            modifiedGame.getPlayersList().set(n, players.get(n));
+        }
+        modifiedGame.setWinScore(Integer.parseInt(winScoreView.getText().toString()));
 
-        return game;
+        return modifiedGame;
 
     }
 

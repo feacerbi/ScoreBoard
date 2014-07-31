@@ -60,41 +60,48 @@ public class GameDAO extends SQLiteOpenHelper{
 
     public long insertGame(Game game) {
 
-        ContentValues cv = new ContentValues();
+        long id;
 
-        cv.put("winScore", game.getWinScore());
-        cv.put("gameMode", game.getGameMode());
+        if(!idExists(game)) {
+            ContentValues cv = new ContentValues();
 
-        long id = getWritableDatabase().insert(TABLE_GAMES, null, cv);
+            cv.put("winScore", game.getWinScore());
+            cv.put("gameMode", game.getGameMode());
 
-        PlayerDAO playerDAO = new PlayerDAO(context);
-        CompetitorDAO competitorDAO = new CompetitorDAO(context);
+            id = getWritableDatabase().insert(TABLE_GAMES, null, cv);
 
-        for(Player player : game.getPlayersList()) {
-            player.setId(playerDAO.insertPlayer(player));
-            
-            Competitor competitor = new Competitor(id, player.getId());
-            competitorDAO.insertCompetitor(competitor);
+            PlayerDAO playerDAO = new PlayerDAO(context);
+            CompetitorDAO competitorDAO = new CompetitorDAO(context);
+
+            for (Player player : game.getPlayersList()) {
+                player.setId(playerDAO.insertPlayer(player));
+
+                Competitor competitor = new Competitor(id, player.getId());
+                competitorDAO.insertCompetitor(competitor);
+            }
+
+            ScoreDAO scoreDAO = new ScoreDAO(context);
+
+            for (Score totalScore : game.getTotalScoresList()) {
+                totalScore.setGameId(id);
+                scoreDAO.insertScore(totalScore);
+            }
+
+            RoundDAO roundDAO = new RoundDAO(context);
+
+            for (Round round : game.getRoundsList()) {
+                round.setGame(game);
+                roundDAO.insertRound(round);
+            }
+
+            playerDAO.close();
+            competitorDAO.close();
+            scoreDAO.close();
+            roundDAO.close();
+        } else {
+            id = game.getId();
+            updateGame(game);
         }
-
-        ScoreDAO scoreDAO = new ScoreDAO(context);
-
-        for(Score totalScore : game.getTotalScoresList()) {
-            totalScore.setGameId(id);
-            scoreDAO.insertScore(totalScore);
-        }
-
-        RoundDAO roundDAO = new RoundDAO(context);
-
-        for(Round round : game.getRoundsList()) {
-            round.setGame(game);
-            roundDAO.insertRound(round);
-        }
-
-        playerDAO.close();
-        competitorDAO.close();
-        scoreDAO.close();
-        roundDAO.close();
 
         return id;
 

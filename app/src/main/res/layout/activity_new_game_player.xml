@@ -33,7 +33,11 @@
             android:layout_height="fill_parent"
             android:layout_gravity="bottom"
             android:gravity="center"
+            android:padding="5dp"
             android:maxLines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
             android:text="Player 1"
             android:textSize="18sp"
             android:layout_weight="0.5">

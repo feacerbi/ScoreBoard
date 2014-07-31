@@ -43,11 +43,7 @@ public class SaveGameTask extends AsyncTask<Game, Void, Void> {
 
         GameDAO gameDAO = new GameDAO(msa);
 
-        if(gameDAO.idExists(games[0])) {
-            gameDAO.updateGame(games[0]);
-        } else {
-            msa.getGame().setId(gameDAO.insertGame(games[0]));
-        }
+        msa.getGame().setId(gameDAO.insertGame(games[0]));
 
         gameDAO.close();
 

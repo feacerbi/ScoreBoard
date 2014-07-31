@@ -26,8 +26,6 @@ public class NewGameActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
 
-        ngh = new NewGameHelper(this);
-
     }
 
     public void createNew() {
@@ -87,6 +85,9 @@ public class NewGameActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.new_game, menu);
         restoreActionBar();
+
+        ngh = new NewGameHelper(this);
+
         return false;
     }
 

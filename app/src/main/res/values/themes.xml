@@ -12,10 +12,25 @@
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
     </style>
 
+    <!-- ActionBar styles -->
+    <style name="MyActionBarNew"
+        parent="Widget.AppCompat.ActionBar">
+        <item name="android:titleTextStyle">@style/MyActionBarTitleTextNew</item>
+        <item name="android:background">@color/primary</item>
+    </style>
+
     <!-- ActionBar title text -->
     <style name="MyActionBarTitleText"
         parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">#696969</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- ActionBar title text -->
+    <style name="MyActionBarTitleTextNew"
+        parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">#FFFFFF</item>
         <item name="android:typeface">sans</item>
         <item name="android:textStyle">bold</item>
     </style>

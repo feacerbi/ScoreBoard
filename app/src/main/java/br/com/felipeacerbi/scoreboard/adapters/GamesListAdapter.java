@@ -52,12 +52,12 @@ public class GamesListAdapter extends BaseAdapter {
         switch(game.getGameMode()) {
             case Game.GAME_MODE_1X1:
                 if(view == null) {
-                    gameItem = activity.getLayoutInflater().inflate(R.layout.game_item_1X1, null);
+                    gameItem = activity.getLayoutInflater().inflate(R.layout.game_item_1x1, null);
                 }
                 break;
             case Game.GAME_MODE_2X2:
                 if(view == null) {
-                    gameItem = activity.getLayoutInflater().inflate(R.layout.game_item_2X2, null);
+                    gameItem = activity.getLayoutInflater().inflate(R.layout.game_item_2x2, null);
                 }
                 TextView name3 = (TextView) gameItem.findViewById(R.id.name_3);
                 TextView name4 = (TextView) gameItem.findViewById(R.id.name_4);

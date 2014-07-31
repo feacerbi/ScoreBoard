@@ -27,6 +27,10 @@
             android:id="@+id/name_listview"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
             android:textSize="24sp"
             android:text="Player 1"/>
 

@@ -23,8 +23,12 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
             android:text="Player 1"
+            android:maxLines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
             android:textColor="@android:color/black"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:gravity="center_horizontal"/>
 
         <TextView
@@ -55,6 +59,9 @@
             android:textColor="@android:color/black"
             android:textSize="12sp"
             android:maxLines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
             android:layout_gravity="center_horizontal|top"
             android:gravity="center_horizontal|top"/>
 
@@ -95,8 +102,12 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.5"
             android:text="Player 2"
+            android:maxLines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
             android:textColor="@android:color/black"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:gravity="center_horizontal"/>
 
         <TextView

@@ -1,5 +1,6 @@
 package br.com.felipeacerbi.scoreboard.adapters;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -36,11 +38,12 @@ public class NewGamePlayersAdapter extends BaseAdapter {
     private PlayerDAO playerDAO;
     private PlayersSelectListAdapter selectList;
     private ViewHolder temp;
+    private boolean isNew;
 
-    public NewGamePlayersAdapter(Activity activity, List<Player> players) {
+    public NewGamePlayersAdapter(Activity activity, List<Player> players, boolean isNew) {
         this.players = players;
         this.activity = activity;
-        playerDAO = new PlayerDAO(activity);
+        this.isNew = isNew;
     }
 
     @Override
@@ -96,13 +99,19 @@ public class NewGamePlayersAdapter extends BaseAdapter {
                     case 0:
                         vh.playerName.setText(vh.playerTitle.getText());
                         addNewPlayer(vh);
+                        isNew = true;
                         break;
                     case 1:
                         customPlayerNameDialog(vh);
+                        isNew = true;
                         break;
                     case 2:
-                        setTemp(vh);
-                        new SelectPlayersTask(((NewGameActivity) activity), NewGamePlayersAdapter.this).execute();
+                        if(!isNew) {
+                            vh.playerName.setText(vh.player.getName());
+                        } else {
+                            setTemp(vh);
+                            new SelectPlayersTask(((NewGameActivity) activity), NewGamePlayersAdapter.this).execute();
+                        }
                         break;
                 }
             }
@@ -115,6 +124,10 @@ public class NewGamePlayersAdapter extends BaseAdapter {
             }
         });
 
+
+        if(!isNew) {
+            vh.playerType.setSelection(2);
+        }
 
         return view;
     }

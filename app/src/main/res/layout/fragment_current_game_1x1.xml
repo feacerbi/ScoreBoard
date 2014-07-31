@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
         android:padding="8dp"
-        android:background="@android:color/holo_green_dark"
+        android:background="@drawable/button_add_style"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -30,6 +30,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
                 android:text="Player 1"
+                android:maxLines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
+                android:scrollHorizontally="true"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="22sp"
@@ -43,7 +47,7 @@
                 android:layout_marginTop="6dp"
                 android:text="0"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:gravity="center_horizontal"/>
 
         </LinearLayout>
@@ -62,8 +66,11 @@
                 android:layout_weight="1"
                 android:text="Round 1"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:maxLines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
+                android:scrollHorizontally="true"
                 android:gravity="center_horizontal|top"
                 android:layout_gravity="center_horizontal|top"/>
 
@@ -85,7 +92,7 @@
                 android:layout_weight="1"
                 android:text="3000"
                 android:textColor="@android:color/white"
-                android:textSize="12sp"
+                android:textSize="16sp"
                 android:maxLines="1"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"/>/>
@@ -107,6 +114,10 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="0.5"
                 android:text="Player 2"
+                android:maxLines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
+                android:scrollHorizontally="true"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="22sp"
@@ -120,7 +131,7 @@
                 android:layout_marginTop="6dp"
                 android:text="0"
                 android:textColor="@android:color/white"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:gravity="center_horizontal"/>
 
         </LinearLayout>
@@ -135,7 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="visible"
-        android:background="@android:color/holo_green_dark"
+        android:background="@color/primary"
         android:padding="5dp">
 
         <EditText
@@ -174,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@android:drawable/ic_menu_add"/>
+                android:src="@drawable/ic_add_round"/>
 
             <TextView
                 android:id="@+id/add_score_text"

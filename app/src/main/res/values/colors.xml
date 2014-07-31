@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primary">#259b24</color>
+    <color name="secondary">#0a7e07</color>
     <color name="pressed_color">#FF7272</color>
     <color name="default_color">#FFFFFF</color>
     <color name="action_color">#DADADA</color>
+    <color name="default_text">#696969</color>
 </resources>

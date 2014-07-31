@@ -3,6 +3,7 @@ package br.com.felipeacerbi.scoreboard.adapters;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public class DrawerListAdapter extends ArrayAdapter<String> {
 
     private Activity activity;
     private String[] sections;
+    private int selected = 0;
 
     public DrawerListAdapter(Activity activity, int resource, int textViewResourceId, String[] sections) {
         super(activity, resource, textViewResourceId, sections);
@@ -46,19 +48,32 @@ public class DrawerListAdapter extends ArrayAdapter<String> {
 
         switch(pos) {
             case 0:
-                pic.setImageResource(R.drawable.ic_menu_play_clip);
+                pic.setImageResource(R.drawable.ic_current_game);
                 break;
             case 1:
-                pic.setImageResource(R.drawable.ic_menu_archive);
+                pic.setImageResource(R.drawable.ic_saved_games);
                 break;
             case 2:
-                pic.setImageResource(R.drawable.ic_menu_allfriends);
+                pic.setImageResource(R.drawable.ic_action_play);
                 break;
         }
 
         name.setText(sections[pos]);
 
+        if(selected == pos) {
+            name.setTypeface(null, Typeface.BOLD);
+        } else {
+            name.setTypeface(null, Typeface.NORMAL);
+        }
+
         return drawerItem;
     }
 
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
 }

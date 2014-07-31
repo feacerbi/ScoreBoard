@@ -126,6 +126,7 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(title);
+
     }
 
     public ScoreBoardApplication getApp() {
