@@ -126,6 +126,7 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(title);
+        actionBar.setDisplayShowHomeEnabled(false);
 
     }
 
@@ -148,7 +149,6 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
         super.onRestoreInstanceState(savedInstanceState);
 
         game = (Game) savedInstanceState.getSerializable("game");
-
         getNavDrawerFragment().selectItem(savedInstanceState.getInt("position"));
     }
 }

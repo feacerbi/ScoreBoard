@@ -101,7 +101,6 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
-                ((DrawerListAdapter) mDrawerListView.getAdapter()).setSelected(position);
             }
         });
 
@@ -174,6 +173,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void selectItem(int position) {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
+            ((DrawerListAdapter) mDrawerListView.getAdapter()).setSelected(position);
             mDrawerListView.setItemChecked(position, true);
         }
         if (mDrawerLayout != null) {

@@ -4,29 +4,26 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.felipeacerbi.scoreboard.R;
-import br.com.felipeacerbi.scoreboard.activities.AddPlayerActivity;
 import br.com.felipeacerbi.scoreboard.activities.NewGameActivity;
 import br.com.felipeacerbi.scoreboard.adapters.ScoreListAdapter;
 import br.com.felipeacerbi.scoreboard.activities.MainScoreActivity;
@@ -47,6 +44,7 @@ public class CurrentMatchFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     public static final int NEW_GAME = 101;
 
+    private View rootView;
     private TextView nameBox1;
     private TextView nameBox2;
     private TextView nameBox3;
@@ -237,6 +235,7 @@ public class CurrentMatchFragment extends Fragment {
         List<Game> games = new ArrayList<Game>();
         games.add(getGame());
 
+        // TODO History Games
         new DeleteGamesTask((MainScoreActivity) getActivity(), null).execute(games);
 
         disable();
@@ -245,7 +244,7 @@ public class CurrentMatchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = setLayout(Game.GAME_MODE_1X1);
+        rootView = setLayout(Game.GAME_MODE_1X1);
         disable();
 
         if(getGame() != null) {
@@ -269,6 +268,7 @@ public class CurrentMatchFragment extends Fragment {
 
     public void disable() {
         addBar.setVisibility(View.INVISIBLE);
+        ((RelativeLayout) addBar.getParent()).removeView(addBar);
         scoreCard.setEnabled(false);
         shadow.setVisibility(View.INVISIBLE);
         emptyList.setText("Start a new game on the above menu.");
@@ -278,6 +278,8 @@ public class CurrentMatchFragment extends Fragment {
 
     public void enable() {
         addBar.setVisibility(View.VISIBLE);
+        ((RelativeLayout) rootView).removeView(addBar);
+        ((RelativeLayout) rootView).addView(addBar);
         scoreCard.setEnabled(true);
         shadow.setVisibility(View.VISIBLE);
         emptyList.setText("Add a round score on the bar below.");
@@ -310,13 +312,11 @@ public class CurrentMatchFragment extends Fragment {
 
     private View setLayout(int gameMode) {
 
-        View rootView = null;
-
         switch (gameMode) {
             case Game.GAME_MODE_1X1:
                 rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_current_game_1x1, null);
 
-                getViews(rootView);
+                getViews();
 
                 addButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -332,7 +332,7 @@ public class CurrentMatchFragment extends Fragment {
             case Game.GAME_MODE_2X2:
                 rootView = getActivity().getLayoutInflater().inflate(R.layout.fragment_current_game_2x2, null);
 
-                getViews(rootView);
+                getViews();
 
                 nameBox3 = (TextView) rootView.findViewById(R.id.name_3);
                 nameBox4 = (TextView) rootView.findViewById(R.id.name_4);
@@ -354,7 +354,7 @@ public class CurrentMatchFragment extends Fragment {
 
     }
 
-    public void getViews(View rootView) {
+    public void getViews() {
 
         addButton = (LinearLayout) rootView.findViewById(R.id.add_score);
         inputScore1 = (EditText) rootView.findViewById(R.id.new_score1);
@@ -401,7 +401,7 @@ public class CurrentMatchFragment extends Fragment {
                 if(addBar.getVisibility() != View.INVISIBLE) {
                     removeRound();
                 } else {
-                    Toast.makeText(getActivity(), "Game already ended", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Start a new game", Toast.LENGTH_SHORT).show();
                 }
                 return true;
         }

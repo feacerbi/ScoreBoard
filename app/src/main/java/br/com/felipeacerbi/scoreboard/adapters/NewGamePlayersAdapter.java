@@ -87,7 +87,7 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         vh.playerType.setTag(vh);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
-                R.array.player_types, android.R.layout.simple_spinner_item);
+                R.array.player_types, R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         vh.playerType.setAdapter(adapter);
 
@@ -136,12 +136,12 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        View convertView = (View) inflater.inflate(R.layout.players_select_dialog, null);
+        View convertView = inflater.inflate(R.layout.players_select_dialog, null);
         alertDialog.setView(convertView);
         alertDialog.setTitle("Select Player");
 
         ListView lv = (ListView) convertView.findViewById(R.id.players_select_listview);
-        lv.setEmptyView((TextView) convertView.findViewById(R.id.empty_select_text));
+        lv.setEmptyView(convertView.findViewById(R.id.empty_select_text));
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -207,6 +207,10 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         });
         alertDialog.show();
 
+    }
+
+    public boolean isNew() {
+        return isNew;
     }
 
     public ViewHolder getTemp() {

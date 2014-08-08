@@ -6,15 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.List;
+
 import br.com.felipeacerbi.scoreboard.R;
 import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
-import br.com.felipeacerbi.scoreboard.db.GameDAO;
 import br.com.felipeacerbi.scoreboard.models.Game;
+import br.com.felipeacerbi.scoreboard.models.Player;
 import br.com.felipeacerbi.scoreboard.utils.NewGameHelper;
 
 public class NewGameActivity extends ActionBarActivity {
@@ -56,7 +57,7 @@ public class NewGameActivity extends ActionBarActivity {
         actionBar.setDisplayShowHomeEnabled(false);
         ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
 
-        View view = getLayoutInflater().inflate(R.layout.actionbar_custom, null);
+        View view = getLayoutInflater().inflate(R.layout.actionbar_custom_game, null);
 
         View cancel = view.findViewById(R.id.choice_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -84,9 +85,11 @@ public class NewGameActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.new_game, menu);
-        restoreActionBar();
 
-        ngh = new NewGameHelper(this);
+        if(ngh == null) {
+            restoreActionBar();
+            ngh = new NewGameHelper(this);
+        }
 
         return false;
     }
@@ -98,5 +101,33 @@ public class NewGameActivity extends ActionBarActivity {
                 return true;
         }
         return false;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Game game = ngh.reload();
+        boolean isNew = ngh.isGameNew();
+
+        if(game != null) {
+            outState.putSerializable("game", game);
+            outState.putBoolean("isNew", isNew);
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        restoreActionBar();
+        ngh = new NewGameHelper(this);
+
+        Game game = (Game) savedInstanceState.getSerializable("game");
+        boolean isNew = savedInstanceState.getBoolean("isNew");
+
+        if(game != null) {
+            ngh.setGame(game, isNew);
+        }
     }
 }

@@ -6,7 +6,7 @@
 
     <item android:id="@+id/action_choices"
         android:title="Choices"
-        app:actionLayout="@layout/actionbar_custom"
+        app:actionLayout="@layout/actionbar_custom_game"
         app:showAsAction="always" />
 
 </menu>

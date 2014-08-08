@@ -13,7 +13,7 @@
     <string name="title_activity_add_game">AddGameActivity</string>
     <string-array name="player_types">
         <item>Default</item>
-        <item>Custom</item>
+        <item>New</item>
         <item>Select</item>
     </string-array>
     <string-array name="game_modes">

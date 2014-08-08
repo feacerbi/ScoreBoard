@@ -61,9 +61,11 @@ public class PlayersSelectListAdapter extends BaseAdapter {
         Player player = players.get(pos);
 
         if(player.getPhotoPath() != null) {
-            pic.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeFile(player.getPhotoPath()), 120, 120, true));
+            Bitmap bitmap = BitmapFactory.decodeFile(player.getPhotoPath());
+            pic.setImageBitmap(Bitmap.createScaledBitmap(Bitmap.createBitmap(bitmap, (bitmap.getWidth()/2 - bitmap.getHeight()/2), 0, bitmap.getHeight(), bitmap.getHeight()), 120, 120, false));
         } else {
-            pic.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(activity.getResources(), R.drawable.default_pic), 120, 120, true));
+            Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_contact_picture);
+            pic.setImageBitmap(Bitmap.createScaledBitmap(Bitmap.createBitmap(bitmap, (bitmap.getWidth()/2 - bitmap.getHeight()/2), 0, bitmap.getHeight(), bitmap.getHeight()), 120, 120, false));
         }
 
         name.setText(player.getName());

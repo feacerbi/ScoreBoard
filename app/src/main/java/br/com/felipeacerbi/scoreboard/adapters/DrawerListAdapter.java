@@ -54,7 +54,7 @@ public class DrawerListAdapter extends ArrayAdapter<String> {
                 pic.setImageResource(R.drawable.ic_saved_games);
                 break;
             case 2:
-                pic.setImageResource(R.drawable.ic_action_play);
+                pic.setImageResource(R.drawable.ic_action_group);
                 break;
         }
 

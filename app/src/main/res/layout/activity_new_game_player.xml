@@ -11,6 +11,7 @@
         android:id="@+id/select_players_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="18sp"
         android:text="PLAYER 1"/>
 
     <LinearLayout
@@ -39,7 +40,7 @@
             android:ellipsize="marquee"
             android:scrollHorizontally="true"
             android:text="Player 1"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:layout_weight="0.5">
         </TextView>
 

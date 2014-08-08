@@ -3,6 +3,7 @@
     package="br.com.felipeacerbi.scoreboard" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
     <application
         android:name=".app.ScoreBoardApplication"
@@ -29,11 +30,7 @@
         </activity>
         <activity
             android:name=".activities.NewGameActivity"
-            android:label="@string/title_activity_add_game"
-            android:parentActivityName=".activities.MainScoreActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.com.felipeacerbi.scoreboard.activities.MainScoreActivity" />
+            android:label="@string/title_activity_add_game" >
         </activity>
         <activity
             android:name=".activities.SettingsActivity"

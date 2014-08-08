@@ -29,6 +29,7 @@ public class NewGameHelper {
     private int gameMode;
     private Spinner gameSkins;
     private NewGamePlayersAdapter adapter;
+    private View headerView;
     private Game modifiedGame;
 
     public NewGameHelper(NewGameActivity nga) {
@@ -39,16 +40,15 @@ public class NewGameHelper {
 
         getInfo();
 
-        if(getModify()) {
-            ((TextView) nga.getActionBar().getCustomView().findViewById(R.id.start_button)).setText("MODIFY");
-        }
+        getModify();
 
     }
 
     public void getInfo() {
 
+        headerView = nga.getLayoutInflater().inflate(R.layout.activity_new_game_header, null);
         newPlayersList = (ListView) nga.findViewById(R.id.new_players_list);
-        newPlayersList.addHeaderView(nga.getLayoutInflater().inflate(R.layout.activity_new_game_header, null));
+        newPlayersList.addHeaderView(headerView);
         adapter = new NewGamePlayersAdapter(nga, players, true);
         newPlayersList.setAdapter(adapter);
 
@@ -91,29 +91,13 @@ public class NewGameHelper {
 
     }
 
-    public boolean getModify() {
+    public void getModify() {
 
         Game game = (Game) nga.getIntent().getSerializableExtra("game");
 
         if(game != null) {
-            modifiedGame = game;
-            switch(game.getGameMode()) {
-                case Game.GAME_MODE_1X1:
-                    gameModes.setSelection(0);
-                    gameModes.setEnabled(false);
-                    break;
-                case Game.GAME_MODE_2X2:
-                    gameModes.setSelection(1);
-                    gameModes.setEnabled(false);
-                    break;
-            }
-            winScoreView.setText(String.valueOf(game.getWinScore()));
-            modifyPlayers(game.getPlayersList());
-
-            return true;
+            setGame(game, false);
         }
-
-        return false;
     }
 
     public void fillPlayers(int numberOfPlayers) {
@@ -125,15 +109,13 @@ public class NewGameHelper {
             newPlayer.setName("Player " + (i + 1));
             players.add(newPlayer);
         }
-        adapter = new NewGamePlayersAdapter(nga, players, true);
-        newPlayersList.setAdapter(adapter);
-        newPlayersList.setSelection(newPlayersList.getCount());
+        modifyPlayers(players, true);
 
     }
 
-    public void modifyPlayers(List<Player> players) {
+    public void modifyPlayers(List<Player> players, boolean isNew) {
 
-        adapter = new NewGamePlayersAdapter(nga, players, false);
+        adapter = new NewGamePlayersAdapter(nga, players, isNew);
         newPlayersList.setAdapter(adapter);
         newPlayersList.setSelection(newPlayersList.getCount());
 
@@ -150,7 +132,37 @@ public class NewGameHelper {
         modifiedGame.setWinScore(Integer.parseInt(winScoreView.getText().toString()));
 
         return modifiedGame;
-
     }
 
+    public Game reload() {
+        Game temp = new Game(gameMode);
+        for(int n = 0; n < gameMode; n++) {
+            temp.getPlayersList().set(n, players.get(n));
+        }
+        temp.setWinScore(Integer.parseInt(winScoreView.getText().toString()));
+
+        return temp;
+    }
+
+    public void setGame(Game game, boolean isNew) {
+
+        modifiedGame = game;
+        switch(game.getGameMode()) {
+            case Game.GAME_MODE_1X1:
+                gameModes.setSelection(0);
+                break;
+            case Game.GAME_MODE_2X2:
+                gameModes.setSelection(1);
+                break;
+        }
+        gameModes.setEnabled(isNew);
+        winScoreView.setText(String.valueOf(game.getWinScore()));
+        modifyPlayers(game.getPlayersList(), isNew);
+
+        if(!isNew) {
+            ((TextView) nga.getSupportActionBar().getCustomView().findViewById(R.id.start_button)).setText("MODIFY");
+        }
+    }
+
+    public boolean isGameNew() { return adapter.isNew(); }
 }

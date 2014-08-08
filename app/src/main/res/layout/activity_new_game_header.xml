@@ -2,14 +2,21 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="20dp">
+    android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:id="@+id/game_skins_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GAME SKIN"/>
+        android:background="@color/primary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="GAME SKIN"/>
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/game_skins"
@@ -20,12 +27,20 @@
         android:spinnerMode="dropdown">
     </Spinner>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/game_modes_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/game_skins"
-        android:text="GAME MODE"/>
+        android:background="@color/primary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="GAME MODE"/>
+    </LinearLayout>
 
     <Spinner
         android:id="@+id/game_modes"
@@ -35,12 +50,20 @@
         android:layout_below="@id/game_modes_text"
         android:spinnerMode="dropdown" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/win_score_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/game_modes"
-        android:text="WIN SCORE"/>
+        android:background="@color/primary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="WIN SCORE"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/win_score"
@@ -48,16 +71,25 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:inputType="number"
+        android:textSize="20sp"
         android:maxLines="1"
         android:layout_below="@id/win_score_text"
         android:selectAllOnFocus="true"
         android:text="3000"/>
 
-    <TextView
+    <LinearLayout
         android:id="@+id/select_players_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/win_score"
-        android:text="SELECT PLAYERS"/>
+        android:background="@color/primary">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="SELECT PLAYERS"/>
+    </LinearLayout>
 
 </RelativeLayout>

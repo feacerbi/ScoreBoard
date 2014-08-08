@@ -10,14 +10,15 @@
         android:id="@+id/pic_listview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitCenter"
-        android:src="@drawable/default_pic"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_contact_picture"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_toRightOf="@id/pic_listview"
         android:layout_alignBottom="@id/pic_listview"
+        android:layout_alignTop="@id/pic_listview"
         android:paddingLeft="10dp"
         android:paddingBottom="6dp"
         android:orientation="vertical"
@@ -39,7 +40,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Score: 0"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textColor="@color/default_text"/>
     </LinearLayout>
 
 </RelativeLayout>
