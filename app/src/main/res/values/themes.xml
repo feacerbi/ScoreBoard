@@ -4,6 +4,8 @@
     <style name="CustomActionBarTheme"
         parent="Theme.AppCompat.Light">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">@null</item>
     </style>
 
     <!-- ActionBar styles -->
@@ -11,15 +13,17 @@
         parent="Widget.AppCompat.ActionBar">
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">@null</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBarNew"
-        parent="Widget.AppCompat.ActionBar">
+        parent="Widget.AppCompat.Light.ActionBar">
         <item name="android:titleTextStyle">@style/MyActionBarTitleTextNew</item>
         <item name="android:background">@color/primary</item>
         <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:alpha">1</item>
     </style>
 
     <!-- ActionBar title text -->
@@ -37,6 +41,6 @@
     </style>
 
     <style name="MyActionButtonOverflow">
-        <item name="android:src">@drawable/ic_menu_moreoverflow_normal_holo_dark</item>
+        <item name="android:icon">@drawable/ic_menu_moreoverflow_normal_holo_dark</item>
     </style>
 </resources>

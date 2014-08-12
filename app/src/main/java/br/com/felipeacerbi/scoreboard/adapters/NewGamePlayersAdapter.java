@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,8 +24,10 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.felipeacerbi.scoreboard.R;
+import br.com.felipeacerbi.scoreboard.activities.AddPlayerActivity;
 import br.com.felipeacerbi.scoreboard.activities.NewGameActivity;
 import br.com.felipeacerbi.scoreboard.db.PlayerDAO;
+import br.com.felipeacerbi.scoreboard.fragments.CurrentMatchFragment;
 import br.com.felipeacerbi.scoreboard.models.Player;
 import br.com.felipeacerbi.scoreboard.tasks.SelectPlayersTask;
 
@@ -35,8 +38,6 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
     private Activity activity;
     private List<Player> players;
-    private PlayerDAO playerDAO;
-    private PlayersSelectListAdapter selectList;
     private ViewHolder temp;
     private boolean isNew;
 
@@ -102,7 +103,9 @@ public class NewGamePlayersAdapter extends BaseAdapter {
                         isNew = true;
                         break;
                     case 1:
-                        customPlayerNameDialog(vh);
+                        setTemp(vh);
+                        Intent newPlayer = new Intent(activity, AddPlayerActivity.class);
+                        activity.startActivityForResult(newPlayer, NewGameActivity.NEW_PLAYER);
                         isNew = true;
                         break;
                     case 2:
@@ -118,9 +121,9 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                ViewHolder vh = (ViewHolder) adapterView.getTag();
-                vh.playerType.setSelection(0);
-                addNewPlayer(vh);
+                //ViewHolder vh = (ViewHolder) adapterView.getTag();
+                //vh.playerType.setSelection(0);
+                //addNewPlayer(vh);
             }
         });
 
@@ -178,35 +181,16 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
     }
 
-    public void customPlayerNameDialog(final ViewHolder vh) {
+    public void setNewPlayer(Player player) {
+        ViewHolder vh = getTemp();
+        vh.player = player;
+        players.set(vh.viewPosition, vh.player);
+        vh.playerName.setText(vh.player.getName());
+    }
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-        final EditText newName = new EditText(activity);
-        alertDialog.setView(newName);
-        alertDialog.setTitle("Custom Name");
-        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                addNewPlayer(vh, newName.getText().toString());
-                vh.playerName.setText(vh.player.getName());
-            }
-        });
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                vh.playerType.setSelection(0);
-                addNewPlayer(vh);
-            }
-        });
-        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                vh.playerType.setSelection(0);
-                addNewPlayer(vh);
-            }
-        });
-        alertDialog.show();
-
+    public void cancelNewPlayer() {
+        getTemp().playerType.setSelection(0);
+        addNewPlayer(getTemp());
     }
 
     public boolean isNew() {
@@ -225,15 +209,6 @@ public class NewGamePlayersAdapter extends BaseAdapter {
 
         Player player = new Player();
         player.setName(vh.playerTitle.getText().toString());
-        vh.player = player;
-        players.set(vh.viewPosition, vh.player);
-
-    }
-
-    public void addNewPlayer(ViewHolder vh, String name) {
-
-        Player player = new Player();
-        player.setName(name);
         vh.player = player;
         players.set(vh.viewPosition, vh.player);
 

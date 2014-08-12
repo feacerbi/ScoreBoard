@@ -58,7 +58,6 @@ public class CurrentMatchFragment extends Fragment {
     private TextView roundNumber;
     private ScoreListAdapter sla;
     private TextView emptyList;
-    private GameDAO gameDAO;
     private TextView winscore;
     private View addBar;
     private ImageView shadow;
@@ -143,7 +142,7 @@ public class CurrentMatchFragment extends Fragment {
         score2.setText(String.valueOf(getGame().getTotalScore(1).getValue()));
         roundNumber.setText("Round " + (getGame().getRounds() + 1));
         winscore.setText(String.valueOf(getGame().getWinScore()));
-        scoreList.smoothScrollToPosition(getGame().getRounds());
+        scoreList.setSelection(scoreList.getCount());
 
         return checkWinner();
 
@@ -269,9 +268,19 @@ public class CurrentMatchFragment extends Fragment {
     public void disable() {
         addBar.setVisibility(View.INVISIBLE);
         ((RelativeLayout) addBar.getParent()).removeView(addBar);
+
         scoreCard.setEnabled(false);
         shadow.setVisibility(View.INVISIBLE);
-        emptyList.setText("Start a new game on the above menu.");
+
+        emptyList.setText("Start a new game by clicking \nhere or on the above menu.");
+        ((RelativeLayout.LayoutParams)emptyList.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        emptyList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newGame = new Intent(getActivity(), NewGameActivity.class);
+                startActivityForResult(newGame, NEW_GAME);
+            }
+        });
 
         scoreCard.setOnClickListener(null);
     }
@@ -280,9 +289,13 @@ public class CurrentMatchFragment extends Fragment {
         addBar.setVisibility(View.VISIBLE);
         ((RelativeLayout) rootView).removeView(addBar);
         ((RelativeLayout) rootView).addView(addBar);
+
         scoreCard.setEnabled(true);
         shadow.setVisibility(View.VISIBLE);
+
         emptyList.setText("Add a round score on the bar below.");
+        ((RelativeLayout.LayoutParams)emptyList.getLayoutParams()).addRule(RelativeLayout.ABOVE, R.id.add_bar);
+        emptyList.setOnClickListener(null);
 
         scoreCard.setOnClickListener(new View.OnClickListener() {
             @Override

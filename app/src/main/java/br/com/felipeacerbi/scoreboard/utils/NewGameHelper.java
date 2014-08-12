@@ -31,6 +31,7 @@ public class NewGameHelper {
     private NewGamePlayersAdapter adapter;
     private View headerView;
     private Game modifiedGame;
+    private boolean isNew;
 
     public NewGameHelper(NewGameActivity nga) {
 
@@ -72,11 +73,15 @@ public class NewGameHelper {
                 switch (pos) {
                     case 0:
                         gameMode = Game.GAME_MODE_1X1;
-                        fillPlayers(gameMode);
+                        if(isNew) {
+                            fillPlayers(gameMode);
+                        }
                         break;
                     case 1:
-                        gameMode = Game.GAME_MODE_2X2;
-                        fillPlayers(gameMode);
+                        if(isNew) {
+                            gameMode = Game.GAME_MODE_2X2;
+                            fillPlayers(gameMode);
+                        }
                         break;
                     default:
 
@@ -94,6 +99,8 @@ public class NewGameHelper {
     public void getModify() {
 
         Game game = (Game) nga.getIntent().getSerializableExtra("game");
+
+        isNew = true;
 
         if(game != null) {
             setGame(game, false);
@@ -115,6 +122,7 @@ public class NewGameHelper {
 
     public void modifyPlayers(List<Player> players, boolean isNew) {
 
+        this.players = players;
         adapter = new NewGamePlayersAdapter(nga, players, isNew);
         newPlayersList.setAdapter(adapter);
         newPlayersList.setSelection(newPlayersList.getCount());
@@ -124,6 +132,7 @@ public class NewGameHelper {
     public Game getGame() {
 
         if(modifiedGame == null) {
+            Log.i("NGH", "New Game");
             modifiedGame = new Game(gameMode);
         }
         for(int n = 0; n < gameMode; n++) {
@@ -146,6 +155,7 @@ public class NewGameHelper {
 
     public void setGame(Game game, boolean isNew) {
 
+        this.isNew = isNew;
         modifiedGame = game;
         switch(game.getGameMode()) {
             case Game.GAME_MODE_1X1:
@@ -162,6 +172,10 @@ public class NewGameHelper {
         if(!isNew) {
             ((TextView) nga.getSupportActionBar().getCustomView().findViewById(R.id.start_button)).setText("MODIFY");
         }
+    }
+
+    public NewGamePlayersAdapter getAdapter() {
+        return adapter;
     }
 
     public boolean isGameNew() { return adapter.isNew(); }

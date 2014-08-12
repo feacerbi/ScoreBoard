@@ -6,6 +6,6 @@
         android:state_pressed="true"
         android:drawable="@color/pressed_color" />
     <item
-        android:drawable="@color/action_color" />
+        android:drawable="@color/transparent" />
 
 </selector>

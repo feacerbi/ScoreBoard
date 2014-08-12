@@ -21,13 +21,14 @@
             android:id="@+id/add_player_title_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/pic_view"
+            android:layout_alignBottom="@id/pic_view"
+            android:alpha="0.8"
             android:background="@color/primary">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textSize="16sp"
+                android:padding="3dp"
+                android:textSize="14sp"
                 android:textColor="@android:color/white"
                 android:text="NAME"/>
         </LinearLayout>
@@ -40,6 +41,7 @@
             android:textSize="24sp"
             android:text="Player"
             android:selectAllOnFocus="true"
+
             android:inputType="textCapWords"
             android:maxLines="1"/>
 

@@ -10,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
+
 import java.util.List;
 
 import br.com.felipeacerbi.scoreboard.R;
@@ -60,13 +62,11 @@ public class PlayersSelectListAdapter extends BaseAdapter {
 
         Player player = players.get(pos);
 
-        if(player.getPhotoPath() != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(player.getPhotoPath());
-            pic.setImageBitmap(Bitmap.createScaledBitmap(Bitmap.createBitmap(bitmap, (bitmap.getWidth()/2 - bitmap.getHeight()/2), 0, bitmap.getHeight(), bitmap.getHeight()), 120, 120, false));
-        } else {
-            Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.ic_contact_picture);
-            pic.setImageBitmap(Bitmap.createScaledBitmap(Bitmap.createBitmap(bitmap, (bitmap.getWidth()/2 - bitmap.getHeight()/2), 0, bitmap.getHeight(), bitmap.getHeight()), 120, 120, false));
-        }
+        Ion.with(pic)
+                .resize(120, 120)
+                .centerCrop()
+                .error(activity.getResources().getDrawable(R.drawable.ic_contact_picture))
+                .load(player.getPhotoPath());
 
         name.setText(player.getName());
         score.setText("Score: " + player.getScore());

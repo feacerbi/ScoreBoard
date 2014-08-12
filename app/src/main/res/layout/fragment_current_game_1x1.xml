@@ -170,7 +170,6 @@
             android:layout_height="match_parent"
             android:text="|"
             android:textSize="20sp"
-            android:alpha="0.5"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:textColor="@android:color/white"/>
@@ -206,7 +205,6 @@
             android:layout_height="match_parent"
             android:text="|"
             android:textSize="20sp"
-            android:alpha="0.5"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:textColor="@android:color/white"/>
@@ -256,8 +254,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:dividerHeight="2dp"
-        android:layout_above="@id/add_bar"
-        android:layout_below="@id/score_card">
+        android:layout_below="@id/score_card"
+        android:layout_above="@id/add_bar">
     </ListView>
 
     <TextView
@@ -265,7 +263,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_below="@id/score_card"
         android:gravity="center"
-        android:textColor="#696969"
-        android:text="Add a round score on the bar below."/>
+        android:textColor="#696969"/>
 </RelativeLayout>

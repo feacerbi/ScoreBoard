@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
@@ -30,13 +31,26 @@ public class AddPlayerActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_add_player);
-
     }
 
     public void createNew() {
 
         new AddPlayerTask(this).execute(aph.getPlayer());
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("player", aph.getPlayer());
+        setResult(Activity.RESULT_OK, returnIntent);
+
+        finish();
+
+    }
+
+    public void cancel() {
+
+        Intent returnIntent = new Intent();
+        setResult(Activity.RESULT_CANCELED, returnIntent);
 
         finish();
 
@@ -57,7 +71,7 @@ public class AddPlayerActivity extends ActionBarActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                cancel();
             }
         });
 

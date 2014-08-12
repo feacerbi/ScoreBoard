@@ -7,4 +7,5 @@
     <color name="action_color">#DADADA</color>
     <color name="default_text">#696969</color>
     <color name="hint_color">#8EFFFFFF</color>
+    <color name="transparent">#00000000</color>
 </resources>

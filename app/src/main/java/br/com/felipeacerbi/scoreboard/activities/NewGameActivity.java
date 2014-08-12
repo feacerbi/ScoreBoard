@@ -14,6 +14,7 @@ import java.util.List;
 
 import br.com.felipeacerbi.scoreboard.R;
 import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
+import br.com.felipeacerbi.scoreboard.fragments.CurrentMatchFragment;
 import br.com.felipeacerbi.scoreboard.models.Game;
 import br.com.felipeacerbi.scoreboard.models.Player;
 import br.com.felipeacerbi.scoreboard.utils.NewGameHelper;
@@ -21,6 +22,7 @@ import br.com.felipeacerbi.scoreboard.utils.NewGameHelper;
 public class NewGameActivity extends ActionBarActivity {
 
     private NewGameHelper ngh;
+    public static final int NEW_PLAYER = 102;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,17 @@ public class NewGameActivity extends ActionBarActivity {
 
         finish();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == NEW_PLAYER && resultCode == Activity.RESULT_OK) {
+            Player player = (Player) data.getExtras().getSerializable("player");
+            ngh.getAdapter().setNewPlayer(player);
+        } else {
+            ngh.getAdapter().cancelNewPlayer();
+        }
     }
 
     public void restoreActionBar() {
