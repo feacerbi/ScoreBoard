@@ -1,19 +1,26 @@
 package br.com.felipeacerbi.scoreboard.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import java.io.File;
 
 import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
 import br.com.felipeacerbi.scoreboard.models.Game;
@@ -25,6 +32,7 @@ public class AddPlayerActivity extends ActionBarActivity {
 
     private AddPlayerHelper aph;
     public static final int TAKE_PICTURE = 100;
+    public static final int PICK_PICTURE = 101;
     private String photoPath;
     private String name;
 
@@ -79,6 +87,10 @@ public class AddPlayerActivity extends ActionBarActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                View focusView = AddPlayerActivity.this.getCurrentFocus();
+                if(focusView != null) {
+                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
                 createNew();
             }
         });
@@ -92,8 +104,13 @@ public class AddPlayerActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == TAKE_PICTURE && resultCode == Activity.RESULT_OK) {
-            aph.setPhoto();
+        if(resultCode == Activity.RESULT_OK) {
+            if (requestCode == TAKE_PICTURE) {
+                aph.setPhoto();
+            } else if(requestCode == PICK_PICTURE) {
+                aph.setPath(getBitmapPath(data));
+                aph.setPhoto();
+            }
         }
     }
 
@@ -112,6 +129,59 @@ public class AddPlayerActivity extends ActionBarActivity {
         }
 
         return false;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        aph.checkFolder();
+
+        MenuItem selfie = menu.add("Take a Selfie");
+        selfie.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent cam = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                aph.setPath(AddPlayerHelper.DEFAULT_PATH + System.currentTimeMillis() + ".jpg");
+
+                cam.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(aph.getPath())));
+
+                if(cam.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(cam, TAKE_PICTURE);
+                } else {
+                    Toast.makeText(AddPlayerActivity.this, "No camera app found", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
+
+        MenuItem pick = menu.add("Pick from Gallery");
+        pick.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Intent gal = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                if(gal.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(gal, PICK_PICTURE);
+                } else {
+                    Toast.makeText(AddPlayerActivity.this, "No gallery app found", Toast.LENGTH_SHORT).show();
+                }
+                return false;
+            }
+        });
+    }
+
+    public String getBitmapPath(Intent data){
+        Uri selectedImage = data.getData();
+        String[] filePathColumn = { MediaStore.Images.Media.DATA };
+        Cursor cursor = getContentResolver().query(selectedImage,filePathColumn, null, null, null);
+        cursor.moveToFirst();
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        return picturePath;
     }
 
     @Override

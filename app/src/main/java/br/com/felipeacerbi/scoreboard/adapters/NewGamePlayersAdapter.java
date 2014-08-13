@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -80,12 +82,16 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         vh.playerTitle = (TextView) view.findViewById(R.id.select_players_text);
         vh.playerType = (Spinner) view.findViewById(R.id.add_player_type);
         vh.playerName = (TextView) view.findViewById(R.id.add_player_name);
+        vh.nameShadow = (ImageView) view.findViewById(R.id.name_shadow);
+        vh.nameShadowRight = (ImageView) view.findViewById(R.id.name_shadow_right);
         vh.viewPosition = pos;
         vh.playerTitle.setText("Player " + (vh.viewPosition + 1));
         vh.player = player;
 
         view.setTag(vh);
         vh.playerType.setTag(vh);
+        vh.playerName.setTag(vh);
+        vh.playerName.setSelected(true);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(activity,
                 R.array.player_types, R.layout.simple_spinner_item);
@@ -98,23 +104,39 @@ public class NewGamePlayersAdapter extends BaseAdapter {
                 ViewHolder vh = (ViewHolder) adapterView.getTag();
                 switch (pos) {
                     case 0:
+                        vh.nameShadow.setVisibility(View.INVISIBLE);
+                        vh.nameShadowRight.setVisibility(View.INVISIBLE);
                         vh.playerName.setText(vh.playerTitle.getText());
                         addNewPlayer(vh);
+                        vh.playerName.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                        vh.playerName.setOnClickListener(null);
                         isNew = true;
                         break;
                     case 1:
+                        vh.nameShadow.setVisibility(View.INVISIBLE);
+                        vh.nameShadowRight.setVisibility(View.INVISIBLE);
                         setTemp(vh);
                         Intent newPlayer = new Intent(activity, AddPlayerActivity.class);
                         activity.startActivityForResult(newPlayer, NewGameActivity.NEW_PLAYER);
+                        vh.playerName.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
+                        vh.playerName.setOnClickListener(null);
                         isNew = true;
                         break;
                     case 2:
+                        vh.nameShadow.setVisibility(View.VISIBLE);
+                        vh.nameShadowRight.setVisibility(View.VISIBLE);
                         if(!isNew) {
                             vh.playerName.setText(vh.player.getName());
                         } else {
-                            setTemp(vh);
-                            new SelectPlayersTask(((NewGameActivity) activity), NewGamePlayersAdapter.this).execute();
+                            pickPlayer(vh);
                         }
+                        vh.playerName.setBackgroundResource(R.drawable.player_button_style);
+                        vh.playerName.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                pickPlayer((ViewHolder) view.getTag());
+                            }
+                        });
                         break;
                 }
             }
@@ -135,15 +157,20 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         return view;
     }
 
+    public void pickPlayer(ViewHolder vh) {
+        setTemp(vh);
+        new SelectPlayersTask(((NewGameActivity) activity), NewGamePlayersAdapter.this).execute();
+    }
+
     public void getPlayerNameDialog(final ViewHolder vh, final PlayersSelectListAdapter adapter) {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
-        View convertView = inflater.inflate(R.layout.players_select_dialog, null);
+        final View convertView = inflater.inflate(R.layout.players_select_dialog, null);
         alertDialog.setView(convertView);
         alertDialog.setTitle("Select Player");
 
-        ListView lv = (ListView) convertView.findViewById(R.id.players_select_listview);
+        final ListView lv = (ListView) convertView.findViewById(R.id.players_select_listview);
         lv.setEmptyView(convertView.findViewById(R.id.empty_select_text));
         lv.setAdapter(adapter);
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -158,9 +185,7 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                 vh.playerName.setText(vh.player.getName());
-
             }
         });
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -205,6 +230,10 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         this.temp = temp;
     }
 
+    public void showMessage(String message) {
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+    }
+
     public void addNewPlayer(ViewHolder vh) {
 
         Player player = new Player();
@@ -218,6 +247,8 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         TextView playerTitle;
         Spinner playerType;
         TextView playerName;
+        ImageView nameShadow;
+        ImageView nameShadowRight;
         int viewPosition;
         Player player;
     }

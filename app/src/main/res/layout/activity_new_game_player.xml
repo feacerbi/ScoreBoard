@@ -28,22 +28,47 @@
             android:layout_weight="0.5"
             android:spinnerMode="dropdown" />
 
-        <TextView
-            android:id="@+id/add_player_name"
+        <RelativeLayout
+            android:id="@+id/name_player_relative"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:padding="5dp"
-            android:maxLines="1"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:ellipsize="marquee"
-            android:scrollHorizontally="true"
-            android:text="Player 1"
-            android:textSize="20sp"
-            android:layout_weight="0.5">
-        </TextView>
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/add_player_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp"
+                android:maxLines="1"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
+                android:scrollHorizontally="true"
+                android:text="Player 1"
+                android:textSize="20sp">
+            </TextView>
 
+            <ImageView
+                android:id="@+id/name_shadow"
+                android:layout_width="fill_parent"
+                android:layout_height="6dp"
+                android:layout_below="@id/add_player_name"
+                android:layout_alignRight="@id/add_player_name"
+                android:scaleType="fitXY"
+                android:alpha="0.6"
+                android:src="@drawable/drawer_shadow_down"/>
+
+            <ImageView
+                android:id="@+id/name_shadow_right"
+                android:layout_width="6dp"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@id/add_player_name"
+                android:layout_above="@id/name_shadow"
+                android:scaleType="fitXY"
+                android:alpha="0.6"
+                android:src="@drawable/drawer_shadow"/>
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

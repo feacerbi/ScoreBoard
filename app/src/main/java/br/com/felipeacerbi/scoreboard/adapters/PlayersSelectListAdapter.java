@@ -65,7 +65,8 @@ public class PlayersSelectListAdapter extends BaseAdapter {
         Ion.with(pic)
                 .resize(120, 120)
                 .centerCrop()
-                .error(activity.getResources().getDrawable(R.drawable.ic_contact_picture))
+                .placeholder(R.drawable.ic_contact_picture)
+                .error(R.drawable.ic_contact_picture)
                 .load(player.getPhotoPath());
 
         name.setText(player.getName());

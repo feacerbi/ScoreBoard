@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- the theme applied to the application or activity -->
-    <style name="CustomActionBarTheme"
+    <style name="CustomTheme"
         parent="Theme.AppCompat.Light">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:background">@null</item>
+        <item name="android:windowBackground">@color/default_color</item>
+        <item name="android:colorBackground">@color/default_color</item>
     </style>
 
     <!-- ActionBar styles -->

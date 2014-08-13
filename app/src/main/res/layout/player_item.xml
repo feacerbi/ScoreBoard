@@ -37,7 +37,7 @@
 
         <TextView
             android:id="@+id/score_listview"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Score: 0"
             android:textSize="14sp"

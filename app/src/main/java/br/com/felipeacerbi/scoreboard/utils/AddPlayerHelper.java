@@ -2,6 +2,7 @@ package br.com.felipeacerbi.scoreboard.utils;
 
 import java.io.File;
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.koushikdutta.ion.Ion;
 
 import br.com.felipeacerbi.scoreboard.R;
 import br.com.felipeacerbi.scoreboard.activities.AddPlayerActivity;
@@ -55,27 +58,8 @@ public class AddPlayerHelper {
 		
 		nameField = (EditText) apa.findViewById(R.id.name_bar);
 		photo = (ImageView) apa.findViewById(R.id.pic_view);
-		
-		photo.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
 
-                checkFolder();
-
-				Intent cam = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				
-				path = DEFAULT_PATH + System.currentTimeMillis() + ".jpg";
-
-				cam.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(path)));
-
-                if(cam.resolveActivity(apa.getPackageManager()) != null) {
-                    apa.startActivityForResult(cam, AddPlayerActivity.TAKE_PICTURE);
-                } else {
-                    Toast.makeText(apa, "No camera app found", Toast.LENGTH_SHORT).show();
-                }
-			}
-		});
+		apa.registerForContextMenu(photo);
 		
 	}
 
@@ -99,9 +83,8 @@ public class AddPlayerHelper {
 			id = player.getId();
 			nameField.setText(player.getName());
 			if(player.getPhotoPath() != null) {
-                Bitmap bmp = BitmapFactory.decodeFile(player.getPhotoPath());
-				photo.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true));
-				path = player.getPhotoPath();
+				setPath(player.getPhotoPath());
+                setPhoto();
 			}
 
             return true;
@@ -130,8 +113,10 @@ public class AddPlayerHelper {
     }
 
     public void setPhoto() {
-        Bitmap bmp = BitmapFactory.decodeFile(path);
-        photo.setImageBitmap(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), bmp.getHeight(), true));
+        Ion.with(photo)
+                .placeholder(R.drawable.ic_contact_picture)
+                .error(R.drawable.ic_contact_picture)
+                .load(getPath());
     }
 
     public EditText getNameField() {

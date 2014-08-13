@@ -132,7 +132,6 @@ public class NewGameHelper {
     public Game getGame() {
 
         if(modifiedGame == null) {
-            Log.i("NGH", "New Game");
             modifiedGame = new Game(gameMode);
         }
         for(int n = 0; n < gameMode; n++) {
