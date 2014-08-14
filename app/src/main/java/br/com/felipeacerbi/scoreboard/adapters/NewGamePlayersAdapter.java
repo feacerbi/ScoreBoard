@@ -106,25 +106,32 @@ public class NewGamePlayersAdapter extends BaseAdapter {
                     case 0:
                         vh.nameShadow.setVisibility(View.INVISIBLE);
                         vh.nameShadowRight.setVisibility(View.INVISIBLE);
+
                         vh.playerName.setText(vh.playerTitle.getText());
                         addNewPlayer(vh);
                         vh.playerName.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
                         vh.playerName.setOnClickListener(null);
+
                         isNew = true;
                         break;
                     case 1:
                         vh.nameShadow.setVisibility(View.INVISIBLE);
                         vh.nameShadowRight.setVisibility(View.INVISIBLE);
+
                         setTemp(vh);
+
                         Intent newPlayer = new Intent(activity, AddPlayerActivity.class);
                         activity.startActivityForResult(newPlayer, NewGameActivity.NEW_PLAYER);
+
                         vh.playerName.setBackgroundColor(activity.getResources().getColor(R.color.default_color));
                         vh.playerName.setOnClickListener(null);
+
                         isNew = true;
                         break;
                     case 2:
                         vh.nameShadow.setVisibility(View.VISIBLE);
                         vh.nameShadowRight.setVisibility(View.VISIBLE);
+
                         if(!isNew) {
                             vh.playerName.setText(vh.player.getName());
                         } else {
@@ -211,11 +218,6 @@ public class NewGamePlayersAdapter extends BaseAdapter {
         vh.player = player;
         players.set(vh.viewPosition, vh.player);
         vh.playerName.setText(vh.player.getName());
-    }
-
-    public void cancelNewPlayer() {
-        getTemp().playerType.setSelection(0);
-        addNewPlayer(getTemp());
     }
 
     public boolean isNew() {

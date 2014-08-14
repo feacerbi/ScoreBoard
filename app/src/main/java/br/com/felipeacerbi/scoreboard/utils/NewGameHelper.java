@@ -45,6 +45,20 @@ public class NewGameHelper {
 
     }
 
+    public NewGameHelper(NewGameActivity nga, Game modifiedGame, boolean isNew) {
+
+        this.nga = nga;
+        this.modifiedGame = modifiedGame;
+        this.isNew = isNew;
+
+        players = new ArrayList<Player>();
+
+        getInfo();
+
+        getModify();
+
+    }
+
     public void getInfo() {
 
         headerView = nga.getLayoutInflater().inflate(R.layout.activity_new_game_header, null);
@@ -74,13 +88,17 @@ public class NewGameHelper {
                     case 0:
                         gameMode = Game.GAME_MODE_1X1;
                         if(isNew) {
-                            fillPlayers(gameMode);
+                            fillPlayers(gameMode); Log.i("NGH", "fill");
+                        } else {
+                            setGame(modifiedGame, isNew);
                         }
                         break;
                     case 1:
                         if(isNew) {
                             gameMode = Game.GAME_MODE_2X2;
                             fillPlayers(gameMode);
+                        } else {
+                            setGame(modifiedGame, isNew);
                         }
                         break;
                     default:
@@ -122,8 +140,8 @@ public class NewGameHelper {
 
     public void modifyPlayers(List<Player> players, boolean isNew) {
 
-        this.players = players;
-        adapter = new NewGamePlayersAdapter(nga, players, isNew);
+        this.players = players;Log.i("NGH", players.get(0).getName());
+        adapter = new NewGamePlayersAdapter(nga, this.players, isNew);
         newPlayersList.setAdapter(adapter);
         newPlayersList.setSelection(newPlayersList.getCount());
 

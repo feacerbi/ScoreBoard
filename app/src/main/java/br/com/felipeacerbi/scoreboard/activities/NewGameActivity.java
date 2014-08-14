@@ -23,6 +23,7 @@ public class NewGameActivity extends ActionBarActivity {
 
     private NewGameHelper ngh;
     public static final int NEW_PLAYER = 102;
+    Bundle saveState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,9 @@ public class NewGameActivity extends ActionBarActivity {
             Player player = (Player) data.getExtras().getSerializable("player");
             ngh.getAdapter().setNewPlayer(player);
         } else {
-            ngh.getAdapter().cancelNewPlayer();
+            if(saveState != null) {
+                onRestoreInstanceState(saveState);
+            }
         }
     }
 
@@ -93,6 +96,13 @@ public class NewGameActivity extends ActionBarActivity {
 
     public ScoreBoardApplication getApp() {
         return (ScoreBoardApplication) getApplication();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveState = new Bundle();
+        onSaveInstanceState(saveState);
     }
 
     @Override
@@ -133,14 +143,18 @@ public class NewGameActivity extends ActionBarActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        restoreActionBar();
-        ngh = new NewGameHelper(this);
-
         Game game = (Game) savedInstanceState.getSerializable("game");
         boolean isNew = savedInstanceState.getBoolean("isNew");
 
-        if(game != null) {
-            ngh.setGame(game, isNew);
+        restoreActionBar();
+        if(ngh == null) {
+            if(game != null) {
+                ngh = new NewGameHelper(this, game, isNew);
+            } else {
+                ngh = new NewGameHelper(this);
+            }
+
         }
+
     }
 }
