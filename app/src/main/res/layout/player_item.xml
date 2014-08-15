@@ -20,6 +20,7 @@
         android:layout_alignBottom="@id/pic_listview"
         android:layout_alignTop="@id/pic_listview"
         android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:paddingBottom="6dp"
         android:orientation="vertical"
         android:gravity="center">

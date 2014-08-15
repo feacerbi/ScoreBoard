@@ -44,13 +44,13 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!navDrawerFragment.isDrawerOpen()) {
             if(title.equals(getString(R.string.title_section1))) {
-                getMenuInflater().inflate(R.menu.main_score, menu);
+                getMenuInflater().inflate(R.menu.main_score_light, menu);
                 restoreActionBar();
             } else if(title.equals(getString(R.string.title_section2))) {
                 getMenuInflater().inflate(R.menu.games, menu);
                 restoreActionBar();
             } else if(title.equals(getString(R.string.title_section3))) {
-                getMenuInflater().inflate(R.menu.players, menu);
+                getMenuInflater().inflate(R.menu.players_light, menu);
                 restoreActionBar();
             }
             return true;

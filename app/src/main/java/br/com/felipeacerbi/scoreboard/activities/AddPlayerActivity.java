@@ -39,11 +39,12 @@ public class AddPlayerActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         setContentView(R.layout.activity_add_player);
     }
 
     public void createNew() {
+
+        hideKeyboard();
 
         new AddPlayerTask(this).execute(aph.getPlayer());
 
@@ -66,36 +67,7 @@ public class AddPlayerActivity extends ActionBarActivity {
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayUseLogoEnabled(false);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(false);
-        ActionBar.LayoutParams lp = new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-
-        View view = getLayoutInflater().inflate(R.layout.actionbar_custom_player, null);
-
-        View cancel = view.findViewById(R.id.choice_cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancel();
-            }
-        });
-
-        View start = view.findViewById(R.id.choice_ok);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View focusView = AddPlayerActivity.this.getCurrentFocus();
-                if(focusView != null) {
-                    ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-                createNew();
-            }
-        });
-
-        actionBar.setCustomView(view, lp);
+        actionBar.hide();
     }
 
     public ScoreBoardApplication getApp() {
@@ -116,7 +88,6 @@ public class AddPlayerActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_player, menu);
 
         restoreActionBar();
         aph = new AddPlayerHelper(this);
@@ -182,6 +153,13 @@ public class AddPlayerActivity extends ActionBarActivity {
         cursor.close();
 
         return picturePath;
+    }
+
+    public void hideKeyboard() {
+        View focusView = this.getCurrentFocus();
+        if(focusView != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+        }
     }
 
     @Override

@@ -8,23 +8,20 @@
         <item name="android:background">@null</item>
         <item name="android:windowBackground">@color/default_color</item>
         <item name="android:colorBackground">@color/default_color</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBar"
         parent="Widget.AppCompat.ActionBar">
         <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:background">@null</item>
     </style>
 
     <!-- ActionBar styles -->
     <style name="MyActionBarNew"
-        parent="Widget.AppCompat.Light.ActionBar">
+        parent="Widget.AppCompat.ActionBar">
         <item name="android:titleTextStyle">@style/MyActionBarTitleTextNew</item>
         <item name="android:background">@color/primary</item>
-        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
-        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <!-- ActionBar title text -->
@@ -41,7 +38,8 @@
         <item name="android:typeface">sans</item>
     </style>
 
-    <style name="MyActionButtonOverflow">
+    <style name="MyActionButtonOverflow"
+        parent="Widget.AppCompat.ActionButton.Overflow">
         <item name="android:icon">@drawable/ic_menu_moreoverflow_normal_holo_dark</item>
     </style>
 </resources>

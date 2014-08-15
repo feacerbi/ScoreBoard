@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
         android:padding="8dp"
-        android:background="@drawable/button_add_style"
+        android:background="@drawable/score_card_button_style"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -34,7 +34,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:ellipsize="marquee"
                 android:scrollHorizontally="true"
-                android:textColor="@android:color/white"
+                android:textColor="@color/score_card"
                 android:textStyle="bold"
                 android:textSize="22sp"
                 android:gravity="center_horizontal"/>
@@ -46,7 +46,7 @@
                 android:layout_weight="0.5"
                 android:layout_marginTop="6dp"
                 android:text="0"
-                android:textColor="@android:color/white"
+                android:textColor="@color/score_card"
                 android:textSize="20sp"
                 android:gravity="center_horizontal"/>
 
@@ -65,7 +65,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="Round 1"
-                android:textColor="@android:color/white"
+                android:textColor="@color/score_card"
                 android:textSize="16sp"
                 android:textStyle="italic"
                 android:maxLines="1"
@@ -80,7 +80,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="X"
-                android:textColor="@android:color/white"
+                android:textColor="@color/score_card"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:gravity="center_horizontal"
@@ -92,7 +92,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="3000"
-                android:textColor="@android:color/white"
+                android:textColor="@color/score_card"
                 android:textSize="16sp"
                 android:textStyle="italic"
                 android:maxLines="1"
@@ -105,9 +105,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:orientation="vertical">
 
             <TextView
@@ -120,7 +117,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:ellipsize="marquee"
                 android:scrollHorizontally="true"
-                android:textColor="@android:color/white"
+                android:textColor="@color/score_card"
                 android:textStyle="bold"
                 android:textSize="22sp"
                 android:gravity="center_horizontal"/>
@@ -132,7 +129,7 @@
                 android:layout_weight="0.5"
                 android:layout_marginTop="6dp"
                 android:text="0"
-                android:textColor="@android:color/white"
+                android:textColor="@color/score_card"
                 android:textSize="20sp"
                 android:gravity="center_horizontal"/>
 
@@ -148,7 +145,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:visibility="visible"
-        android:background="@color/primary"
+        android:background="@color/add_bar"
         android:padding="5dp">
 
         <EditText
@@ -225,15 +222,12 @@
             android:selectAllOnFocus="true"/>
 
     </LinearLayout>
-
-
     <ImageView
         android:id="@+id/score_card_shadow"
         android:layout_width="fill_parent"
         android:scaleType="fitXY"
         android:layout_height="4dp"
         android:layout_below="@id/score_card"
-        android:alpha="0.5"
         android:src="@drawable/drawer_shadow_down"
         android:orientation="horizontal">
     </ImageView>
@@ -244,8 +238,7 @@
         android:scaleType="fitXY"
         android:layout_height="4dp"
         android:layout_above="@id/add_bar"
-        android:alpha="0.5"
-        android:src="@drawable/drawer_shadow"
+        android:src="@drawable/drawer_shadow_up"
         android:orientation="horizontal">
     </ImageView>
 

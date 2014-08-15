@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class NewGameHelper {
     public NewGameHelper(NewGameActivity nga) {
 
         this.nga = nga;
+        isNew = true;
 
         players = new ArrayList<Player>();
 
@@ -45,17 +47,15 @@ public class NewGameHelper {
 
     }
 
-    public NewGameHelper(NewGameActivity nga, Game modifiedGame, boolean isNew) {
+    public NewGameHelper(NewGameActivity nga, Game modifiedGame) {
 
         this.nga = nga;
         this.modifiedGame = modifiedGame;
-        this.isNew = isNew;
+        isNew = false;
 
         players = new ArrayList<Player>();
 
         getInfo();
-
-        getModify();
 
     }
 
@@ -88,9 +88,9 @@ public class NewGameHelper {
                     case 0:
                         gameMode = Game.GAME_MODE_1X1;
                         if(isNew) {
-                            fillPlayers(gameMode); Log.i("NGH", "fill");
+                            fillPlayers(gameMode);
                         } else {
-                            setGame(modifiedGame, isNew);
+                            setGame(modifiedGame, false);
                         }
                         break;
                     case 1:
@@ -98,7 +98,7 @@ public class NewGameHelper {
                             gameMode = Game.GAME_MODE_2X2;
                             fillPlayers(gameMode);
                         } else {
-                            setGame(modifiedGame, isNew);
+                            setGame(modifiedGame, false);
                         }
                         break;
                     default:
@@ -140,7 +140,7 @@ public class NewGameHelper {
 
     public void modifyPlayers(List<Player> players, boolean isNew) {
 
-        this.players = players;Log.i("NGH", players.get(0).getName());
+        this.players = players;
         adapter = new NewGamePlayersAdapter(nga, this.players, isNew);
         newPlayersList.setAdapter(adapter);
         newPlayersList.setSelection(newPlayersList.getCount());
@@ -194,6 +194,4 @@ public class NewGameHelper {
     public NewGamePlayersAdapter getAdapter() {
         return adapter;
     }
-
-    public boolean isGameNew() { return adapter.isNew(); }
 }

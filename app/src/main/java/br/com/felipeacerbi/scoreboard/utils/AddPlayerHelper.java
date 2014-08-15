@@ -22,6 +22,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,8 @@ public class AddPlayerHelper {
 	private ImageView photo;
 	private String path;
 	private long id;
+    private LinearLayout createButton;
+    private LinearLayout cancelButton;
 
     public AddPlayerHelper(AddPlayerActivity apa) {
 		 
@@ -49,17 +52,41 @@ public class AddPlayerHelper {
 		getInfo();
 
         if(getModify()) {
-            ((TextView) apa.getSupportActionBar().getCustomView().findViewById(R.id.start_button)).setText("MODIFY");
+            ((TextView) createButton.findViewById(R.id.choice_ok_text)).setText("MODIFY");
         }
-		
+
+        nameField.clearFocus();
 	}
 	 
 	public void getInfo() {
 		
 		nameField = (EditText) apa.findViewById(R.id.name_bar);
 		photo = (ImageView) apa.findViewById(R.id.pic_view);
+        createButton = (LinearLayout) apa.findViewById(R.id.choice_ok);
+        cancelButton = (LinearLayout) apa.findViewById(R.id.choice_cancel);
+
+        createButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                apa.createNew();
+            }
+        });
+
+        cancelButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                apa.cancel();
+            }
+        });
 
 		apa.registerForContextMenu(photo);
+
+        photo.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                apa.openContextMenu(view);
+            }
+        });
 		
 	}
 
@@ -114,8 +141,8 @@ public class AddPlayerHelper {
 
     public void setPhoto() {
         Ion.with(photo)
-                .placeholder(R.drawable.ic_contact_picture)
-                .error(R.drawable.ic_contact_picture)
+                .placeholder(R.drawable.ic_contact_picture_big)
+                .error(R.drawable.ic_contact_picture_big)
                 .load(getPath());
     }
 

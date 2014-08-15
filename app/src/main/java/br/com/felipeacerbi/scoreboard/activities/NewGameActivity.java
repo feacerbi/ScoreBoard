@@ -131,11 +131,9 @@ public class NewGameActivity extends ActionBarActivity {
         super.onSaveInstanceState(outState);
 
         Game game = ngh.reload();
-        boolean isNew = ngh.isGameNew();
 
         if(game != null) {
             outState.putSerializable("game", game);
-            outState.putBoolean("isNew", isNew);
         }
     }
 
@@ -144,17 +142,16 @@ public class NewGameActivity extends ActionBarActivity {
         super.onRestoreInstanceState(savedInstanceState);
 
         Game game = (Game) savedInstanceState.getSerializable("game");
-        boolean isNew = savedInstanceState.getBoolean("isNew");
 
-        restoreActionBar();
+        restoreActionBar();Log.i("NGA", "restored");
         if(ngh == null) {
-            if(game != null) {
-                ngh = new NewGameHelper(this, game, isNew);
+            if (game != null) {
+                ngh = new NewGameHelper(this, game);
             } else {
                 ngh = new NewGameHelper(this);
             }
-
+        } else {
+            ngh.setGame(game, false);
         }
-
     }
 }

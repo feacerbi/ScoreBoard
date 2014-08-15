@@ -4,8 +4,8 @@
 
     <item
         android:state_pressed="true"
-        android:drawable="@android:color/darker_gray" />
+        android:drawable="@color/action_color" />
     <item
-        android:drawable="@color/add_button" />
+        android:drawable="@color/score_card_button" />
 
 </selector>

@@ -70,7 +70,7 @@ public class PlayersListAdapter extends BaseAdapter {
         Player player = players.get(pos);
 
         Ion.with(pic)
-                .resize(120, 120)
+                .resize(90, 90)
                 .centerCrop()
                 .placeholder(R.drawable.ic_contact_picture)
                 .error(R.drawable.ic_contact_picture)
