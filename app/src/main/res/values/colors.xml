@@ -2,17 +2,17 @@
 <resources>
     <color name="primary">#259b24</color>
     <color name="secondary">#0a7e07</color>
-    <color name="color_400">#2baf2b</color>
+    <color name="color_400">#DD2baf2b</color>
     <color name="color_300">#42bd41</color>
     <color name="pressed_color">#2baf2b</color>
-    <color name="default_color">#FFFFFF</color>
+    <color name="default_color">#EEEEEE</color>
     <color name="action_color">#DADADA</color>
     <color name="default_text">#696969</color>
     <color name="hint_color">#8EFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="action_bar_color">#F3F3F3</color>
-    <color name="score_card">@android:color/white</color>
-    <color name="score_card_button">@color/color_400</color>
-    <color name="add_bar">@color/color_400</color>
-    <color name="add_button">@color/add_bar</color>
+    <color name="score_card">@color/primary</color>
+    <color name="score_card_button">@android:color/white</color>
+    <color name="add_bar">#ec259b24</color>
+    <color name="add_button">#00FFFFFF</color>
 </resources>

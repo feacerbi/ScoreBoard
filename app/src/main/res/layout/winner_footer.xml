@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@android:color/white"
     android:padding="5dp">
 
     <TextView
@@ -83,7 +84,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="22dp"
         android:textColor="#696969"
         android:gravity="center"
         android:text="Share your match results:"/>
@@ -98,11 +99,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:visibility="invisible"
             android:layout_weight="1">
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/face"/>
+                android:background="@drawable/plus"/>
         </LinearLayout>
 
         <LinearLayout
@@ -113,13 +115,14 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/plus"/>
+                android:background="@drawable/face"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:visibility="invisible"
             android:layout_weight="1">
             <ImageButton
                 android:layout_width="50dp"

@@ -1,6 +1,7 @@
 package br.com.felipeacerbi.scoreboard.adapters;
 
 import android.app.Activity;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,9 @@ public class GamesListAdapter extends BaseAdapter {
         TextView score2 = (TextView) gameItem.findViewById(R.id.score_2);
         TextView winscore = (TextView) gameItem.findViewById(R.id.winscore);
 
+        Log.i("GLA", name1.getText().toString());
+        Log.i("GLA", game.toString());
+        Log.i("GLA", game.getPlayer(0).getName());
         name1.setText(game.getPlayer(0).getName());
         name2.setText(game.getPlayer(1).getName());
         round.setText("Round " + (game.getRounds() + 1));

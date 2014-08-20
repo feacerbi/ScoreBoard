@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent">
+
+    <ImageView
+        android:id="@+id/footer_card_shadow"
+        android:layout_width="fill_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:scaleType="fitXY"
+        android:layout_height="4dp"
+        android:src="@drawable/drawer_shadow_down"
+        android:orientation="horizontal">
+    </ImageView>
+
+    <LinearLayout
+    android:id="@+id/add_bar"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/footer_card_shadow"
+    android:visibility="invisible"
+    android:background="@color/add_bar"
+    android:padding="5dp">
+
+    <EditText
+        android:id="@+id/new_score1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:hint="Score"
+        android:textColorHint="@color/hint_color"
+        android:maxLines="1"
+        android:inputType="number|numberSigned"
+        android:selectAllOnFocus="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="|"
+        android:textSize="20sp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"/>
+
+    <LinearLayout
+        android:id="@+id/add_score"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/button_add_style"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_add_round"/>
+
+        <TextView
+            android:id="@+id/add_score_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:text="Add"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="|"
+        android:textSize="20sp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:textColor="@android:color/white"/>
+
+    <EditText
+        android:id="@+id/new_score2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:hint="Score"
+        android:textColorHint="@color/hint_color"
+        android:maxLines="1"
+        android:maxEms="6"
+        android:inputType="number|numberSigned"
+        android:selectAllOnFocus="true"/>
+
+</LinearLayout>
+    </RelativeLayout>

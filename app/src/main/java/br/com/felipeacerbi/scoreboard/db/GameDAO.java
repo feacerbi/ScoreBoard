@@ -221,12 +221,13 @@ public class GameDAO extends SQLiteOpenHelper{
                     Player temp = playerDAO.getPlayer(competitor.getPlayerId());
                     game.getPlayersList().set(i++, temp);
                 }
+                Log.i("GDAO", game.getPlayer(0).getName());
                 games.add(game);
 
             } while (c.moveToNext());
 
         }
-
+        Log.i("GDAO", games.size()+"");
         scoreDAO.close();
         roundDAO.close();
         playerDAO.close();

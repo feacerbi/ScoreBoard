@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -210,6 +211,8 @@ public class CurrentMatchFragment extends Fragment {
 
         String names = "";
 
+        roundNumber.setText("Round " + (getGame().getRounds()));
+
         scoreList.addFooterView(getActivity().getLayoutInflater().inflate(R.layout.winner_footer, scoreList, false));
         sla = new ScoreListAdapter(getActivity(), R.layout.round_item, getGame().getRoundsList());
         scoreList.setAdapter(sla);
@@ -238,6 +241,7 @@ public class CurrentMatchFragment extends Fragment {
         new DeleteGamesTask((MainScoreActivity) getActivity(), null).execute(games);
 
         disable();
+
     }
 
     @Override
@@ -273,6 +277,7 @@ public class CurrentMatchFragment extends Fragment {
         shadow.setVisibility(View.INVISIBLE);
 
         emptyList.setText("Start a new game by clicking \nhere or on the above menu.");
+        //emptyList.setBackgroundColor(getActivity().getResources().getColor(R.color.default_color));
         ((RelativeLayout.LayoutParams)emptyList.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         emptyList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,6 +299,7 @@ public class CurrentMatchFragment extends Fragment {
         shadow.setVisibility(View.VISIBLE);
 
         emptyList.setText("Add a round score on the bar below.");
+        //emptyList.setBackgroundColor(Color.WHITE);
         ((RelativeLayout.LayoutParams)emptyList.getLayoutParams()).addRule(RelativeLayout.ABOVE, R.id.add_bar);
         emptyList.setOnClickListener(null);
 
@@ -335,7 +341,15 @@ public class CurrentMatchFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if(!inputScore1.getText().toString().isEmpty() && !inputScore2.getText().toString().isEmpty()) {
-                            addRound();
+                            if(Long.parseLong(inputScore1.getText().toString()) < Integer.MAX_VALUE && Long.parseLong(inputScore2.getText().toString()) < Integer.MAX_VALUE) {
+                                if(Long.parseLong(inputScore1.getText().toString()) > Integer.MIN_VALUE && Long.parseLong(inputScore2.getText().toString()) > Integer.MIN_VALUE) {
+                                    addRound();
+                                } else {
+                                    Toast.makeText(getActivity(), "Input a higher value", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(getActivity(), "Input a lower value", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(getActivity(), "Input all scores", Toast.LENGTH_SHORT).show();
                         }
@@ -354,7 +368,15 @@ public class CurrentMatchFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if(!inputScore1.getText().toString().isEmpty() && !inputScore2.getText().toString().isEmpty()) {
-                            addRound();
+                            if(Long.parseLong(inputScore1.getText().toString()) < Integer.MAX_VALUE && Long.parseLong(inputScore2.getText().toString()) < Integer.MAX_VALUE) {
+                                if(Long.parseLong(inputScore1.getText().toString()) > Integer.MIN_VALUE && Long.parseLong(inputScore2.getText().toString()) > Integer.MIN_VALUE) {
+                                    addRound();
+                                } else {
+                                    Toast.makeText(getActivity(), "Input a higher value", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(getActivity(), "Input a lower value", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(getActivity(), "Input all scores", Toast.LENGTH_SHORT).show();
                         }
@@ -385,6 +407,8 @@ public class CurrentMatchFragment extends Fragment {
         scoreCard = rootView.findViewById(R.id.score_card);
 
         scoreList.setEmptyView(emptyList);
+        scoreList.addFooterView(getActivity().getLayoutInflater().inflate(R.layout.footer_bar, scoreList, false));
+        scoreList.setFooterDividersEnabled(false);
 
     }
 

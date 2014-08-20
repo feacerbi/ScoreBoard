@@ -10,7 +10,6 @@
         android:id="@+id/score_card"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.1"
         android:padding="8dp"
         android:background="@drawable/score_card_button_style"
         android:orientation="horizontal">
@@ -19,9 +18,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.1"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:orientation="vertical">
 
             <TextView
@@ -159,6 +155,7 @@
             android:hint="Score"
             android:textColorHint="@color/hint_color"
             android:maxLines="1"
+            android:maxEms="18"
             android:inputType="number|numberSigned"
             android:selectAllOnFocus="true"/>
 
@@ -217,11 +214,36 @@
             android:hint="Score"
             android:textColorHint="@color/hint_color"
             android:maxLines="1"
-            android:maxEms="6"
+            android:maxEms="18"
             android:inputType="number|numberSigned"
             android:selectAllOnFocus="true"/>
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/score_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:dividerHeight="0dp"
+        android:scrollbars="none"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/score_card">
+    </ListView>
+
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_gravity="center"
+        android:layout_below="@id/score_card"
+        android:gravity="center"
+        android:textColor="@color/default_text"
+        android:background="@android:color/transparent"/>
+
     <ImageView
         android:id="@+id/score_card_shadow"
         android:layout_width="fill_parent"
@@ -241,22 +263,4 @@
         android:src="@drawable/drawer_shadow_up"
         android:orientation="horizontal">
     </ImageView>
-
-    <ListView
-        android:id="@+id/score_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:dividerHeight="2dp"
-        android:layout_below="@id/score_card"
-        android:layout_above="@id/add_bar">
-    </ListView>
-
-    <TextView
-        android:id="@+id/empty_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_below="@id/score_card"
-        android:gravity="center"
-        android:textColor="#696969"/>
 </RelativeLayout>
