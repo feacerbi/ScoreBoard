@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_view"
+    android:background="@color/default_color_undercard"
     tools:context=".MainScore" >
 
     <LinearLayout
@@ -224,8 +225,8 @@
         android:id="@+id/score_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginRight="@dimen/list_margin"
+        android:layout_marginLeft="@dimen/list_margin"
         android:dividerHeight="0dp"
         android:scrollbars="none"
         android:background="@android:color/transparent"
@@ -236,8 +237,8 @@
         android:id="@+id/empty_text"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginRight="@dimen/list_margin"
+        android:layout_marginLeft="@dimen/list_margin"
         android:layout_gravity="center"
         android:layout_below="@id/score_card"
         android:gravity="center"
@@ -250,8 +251,7 @@
         android:scaleType="fitXY"
         android:layout_height="4dp"
         android:layout_below="@id/score_card"
-        android:src="@drawable/drawer_shadow_down"
-        android:orientation="horizontal">
+        android:src="@drawable/drawer_shadow_down">
     </ImageView>
 
     <ImageView
@@ -260,7 +260,6 @@
         android:scaleType="fitXY"
         android:layout_height="4dp"
         android:layout_above="@id/add_bar"
-        android:src="@drawable/drawer_shadow_up"
-        android:orientation="horizontal">
+        android:src="@drawable/drawer_shadow_up">
     </ImageView>
 </RelativeLayout>

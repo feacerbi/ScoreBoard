@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.felipeacerbi.scoreboard.models.Competitor;
+import br.com.felipeacerbi.scoreboard.models.Player;
 import br.com.felipeacerbi.scoreboard.models.Score;
 
 /**
@@ -92,6 +93,19 @@ public class CompetitorDAO extends SQLiteOpenHelper{
         }
 
         return competitors;
+
+    }
+
+    public boolean isPlayerCompeting(Player player) {
+
+        Cursor c = getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_COMPETITORS + " WHERE playerId=" + player.getId() + ";", null);
+
+        if (c.moveToFirst()) {
+            return true;
+        }
+
+        return false;
 
     }
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:padding="5dp">
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/winner_title"
@@ -12,7 +12,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="0.1"
         android:layout_marginLeft="10dp"
-        android:text="End of Game:"
+        android:text="End of Game"
         android:textStyle="bold"
         android:textSize="20sp"
         android:textColor="#696969"

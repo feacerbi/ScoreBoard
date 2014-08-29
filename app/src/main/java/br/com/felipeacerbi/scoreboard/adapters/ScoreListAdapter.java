@@ -43,6 +43,7 @@ public class ScoreListAdapter extends ArrayAdapter<Round> {
         }
 
         TextView scoreTitle = (TextView) convertView.findViewById(R.id.round_score_title);
+        TextView time = (TextView) convertView.findViewById(R.id.round_score_title_date);
         TextView score1 = (TextView) convertView.findViewById(R.id.round_score1);
         TextView score2 = (TextView) convertView.findViewById(R.id.round_score2);
         TextView subScore1 = (TextView) convertView.findViewById(R.id.sub_score1);
@@ -51,6 +52,7 @@ public class ScoreListAdapter extends ArrayAdapter<Round> {
         Round round = rounds.get(position);
 
         scoreTitle.setText(round.getScoreTitle());
+        time.setText(round.getFormattedTime());
         score1.setText(String.valueOf(round.getScore(0).getValue()));
         score2.setText(String.valueOf(round.getScore(1).getValue()));
         subScore1.setText(String.valueOf(round.getSubScore(0).getValue()));

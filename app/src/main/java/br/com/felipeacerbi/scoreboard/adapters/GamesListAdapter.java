@@ -74,9 +74,6 @@ public class GamesListAdapter extends BaseAdapter {
         TextView score2 = (TextView) gameItem.findViewById(R.id.score_2);
         TextView winscore = (TextView) gameItem.findViewById(R.id.winscore);
 
-        Log.i("GLA", name1.getText().toString());
-        Log.i("GLA", game.toString());
-        Log.i("GLA", game.getPlayer(0).getName());
         name1.setText(game.getPlayer(0).getName());
         name2.setText(game.getPlayer(1).getName());
         round.setText("Round " + (game.getRounds() + 1));
@@ -86,13 +83,34 @@ public class GamesListAdapter extends BaseAdapter {
 
         if(selectedIds.get(pos)) {
             gameItem.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+            setTextViewsTextColor(game, gameItem, activity.getResources().getColor(android.R.color.white));
         } else {
             gameItem.setBackgroundResource(R.drawable.list_style);
+            setTextViewsTextColor(game, gameItem, activity.getResources().getColor(android.R.color.black));
         }
 
         gameItem.setTag(game);
 
         return gameItem;
+    }
+
+    public void setTextViewsTextColor(Game game, View gameItem, int color) {
+
+        ((TextView) gameItem.findViewById(R.id.name_1)).setTextColor(color);
+        ((TextView) gameItem.findViewById(R.id.name_2)).setTextColor(color);
+        ((TextView) gameItem.findViewById(R.id.score_1)).setTextColor(color);
+        ((TextView) gameItem.findViewById(R.id.score_2)).setTextColor(color);
+        ((TextView) gameItem.findViewById(R.id.round_number)).setTextColor(color);
+        ((TextView) gameItem.findViewById(R.id.winscore)).setTextColor(color);
+        ((TextView) gameItem.findViewById(R.id.vs)).setTextColor(color);
+
+        if(game.getGameMode() == Game.GAME_MODE_2X2) {
+            ((TextView) gameItem.findViewById(R.id.name_3)).setTextColor(color);
+            ((TextView) gameItem.findViewById(R.id.name_4)).setTextColor(color);
+            ((TextView) gameItem.findViewById(R.id.andp2)).setTextColor(color);
+            ((TextView) gameItem.findViewById(R.id.andp4)).setTextColor(color);
+        }
+
     }
 
     public List<Game> getGames() {

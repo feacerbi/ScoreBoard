@@ -1,114 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:background="@android:color/white"
+    android:padding="5dp">
 
-    <ImageView
-        android:id="@+id/list_shadow_left"
-        android:layout_width="4dp"
-        android:layout_alignParentLeft="true"
-        android:scaleType="fitXY"
-        android:layout_height="match_parent"
-        android:src="@drawable/drawer_shadow_left">
-    </ImageView>
-
-    <ImageView
-        android:id="@+id/list_shadow_right"
-        android:layout_width="4dp"
-        android:layout_alignParentRight="true"
-        android:scaleType="fitXY"
-        android:layout_height="match_parent"
-        android:src="@drawable/drawer_shadow">
-    </ImageView>
+    <TextView
+        android:id="@+id/round_score_title"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="0.1"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:alpha="0.7"
+        android:text="Round 1"
+        android:textColor="@color/default_text"
+        android:textSize="12sp"
+        android:gravity="left"/>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/list_shadow_right"
-        android:layout_toRightOf="@id/list_shadow_left"
-        android:background="@android:color/white"
-        android:padding="5dp">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.1"
+        android:layout_marginTop="5dp"
+        android:gravity="center">
 
         <TextView
-            android:id="@+id/round_score_title"
+            android:id="@+id/round_score1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="0.1"
-            android:text="Round 1 Score:"
-            android:textColor="@color/default_text"
+            android:text="1500"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textColor="@color/default_text"
+            android:textSize="20sp"
             android:gravity="center"/>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:layout_weight="0.1"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/round_score1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.1"
-                android:text="1500"
-                android:textColor="@color/default_text"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/round_score2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.1"
-                android:textColor="@color/default_text"
-                android:textStyle="bold"
-                android:text="1000"
-                android:textSize="20sp"
-                android:gravity="center"/>
-
-        </LinearLayout>
-
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_weight="0.13"
+            android:text="Score"
+            android:textColor="@color/default_text"
+            android:textSize="14sp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/round_score2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="0.1"
-            android:text="Sub Score:"
+            android:textColor="@color/default_text"
+            android:text="1000"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.1"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="3dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/sub_score1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
             android:textColor="#696969"
+            android:text="2000"
+            android:textStyle="bold"
             android:textSize="12sp"
             android:gravity="center"/>
 
-        <LinearLayout
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:orientation="horizontal"
+            android:layout_weight="0.13"
+            android:textColor="#696969"
+            android:text="Sub Score"
+            android:textSize="12sp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/sub_score2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_weight="0.1"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/sub_score1"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.1"
-                android:textColor="#696969"
-                android:text="2000"
-                android:textSize="12sp"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/sub_score2"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="0.1"
-                android:textColor="#696969"
-                android:text="1500"
-                android:textSize="12sp"
-                android:gravity="center"/>
-
-        </LinearLayout>
+            android:textColor="#696969"
+            android:text="1500"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:gravity="center"/>
 
     </LinearLayout>
-</RelativeLayout>
+    <TextView
+        android:id="@+id/round_score_title_date"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.1"
+        android:alpha="0.7"
+        android:text="09:27 AM - 27/08/2014"
+        android:textColor="@color/default_text"
+        android:textSize="12sp"
+        android:gravity="right"/>
+
+</LinearLayout>

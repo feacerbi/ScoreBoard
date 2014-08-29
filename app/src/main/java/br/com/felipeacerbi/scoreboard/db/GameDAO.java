@@ -42,6 +42,7 @@ public class GameDAO extends SQLiteOpenHelper{
         String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_GAMES
                 + "(id INTEGER PRIMARY KEY, "
                 + "winScore INTEGER, "
+                + "finished INTEGER, "
                 + "gameMode INTEGER);";
 
         sldb.execSQL(sql);
@@ -66,6 +67,7 @@ public class GameDAO extends SQLiteOpenHelper{
             ContentValues cv = new ContentValues();
 
             cv.put("winScore", game.getWinScore());
+            cv.put("finished", game.isFinished() ? 1 : 0);
             cv.put("gameMode", game.getGameMode());
 
             id = getWritableDatabase().insert(TABLE_GAMES, null, cv);
@@ -171,6 +173,7 @@ public class GameDAO extends SQLiteOpenHelper{
         ContentValues cv = new ContentValues();
 
         cv.put("winScore", game.getWinScore());
+        cv.put("finished", game.isFinished() ? 1 : 0);
         cv.put("gameMode", game.getGameMode());
 
         String[] args = { String.valueOf(game.getId()) };
@@ -202,7 +205,7 @@ public class GameDAO extends SQLiteOpenHelper{
         CompetitorDAO competitorDAO = new CompetitorDAO(context);
 
         Cursor c = getReadableDatabase().rawQuery(
-                "SELECT * FROM " + TABLE_GAMES + ";", null);
+                "SELECT * FROM " + TABLE_GAMES + " WHERE finished=0;", null);
 
         List<Game> games = new ArrayList<Game>();
 
@@ -214,6 +217,7 @@ public class GameDAO extends SQLiteOpenHelper{
                 Game game = new Game(c.getInt(c.getColumnIndex("gameMode")));
 
                 game.setId(c.getLong(c.getColumnIndex("id")));
+                game.setFinished(false);
                 game.setWinScore(c.getInt(c.getColumnIndex("winScore")));
                 game.setTotalScores(scoreDAO.listGameScores(game.getId(), Score.SCORE_TOTAL));
                 game.setRounds(roundDAO.listRounds(game));
@@ -221,13 +225,57 @@ public class GameDAO extends SQLiteOpenHelper{
                     Player temp = playerDAO.getPlayer(competitor.getPlayerId());
                     game.getPlayersList().set(i++, temp);
                 }
-                Log.i("GDAO", game.getPlayer(0).getName());
+
                 games.add(game);
 
             } while (c.moveToNext());
 
         }
-        Log.i("GDAO", games.size()+"");
+
+        scoreDAO.close();
+        roundDAO.close();
+        playerDAO.close();
+        competitorDAO.close();
+
+        return games;
+
+    }
+
+    public List<Game> listHistoryGames() {
+
+        ScoreDAO scoreDAO = new ScoreDAO(context);
+        RoundDAO roundDAO = new RoundDAO(context);
+        PlayerDAO playerDAO = new PlayerDAO(context);
+        CompetitorDAO competitorDAO = new CompetitorDAO(context);
+
+        Cursor c = getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_GAMES + " WHERE finished=1;", null);
+
+        List<Game> games = new ArrayList<Game>();
+
+        if (c.moveToFirst()) {
+
+            do {
+
+                int i = 0;
+                Game game = new Game(c.getInt(c.getColumnIndex("gameMode")));
+
+                game.setId(c.getLong(c.getColumnIndex("id")));
+                game.setFinished(true);
+                game.setWinScore(c.getInt(c.getColumnIndex("winScore")));
+                game.setTotalScores(scoreDAO.listGameScores(game.getId(), Score.SCORE_TOTAL));
+                game.setRounds(roundDAO.listRounds(game));
+                for(Competitor competitor : competitorDAO.listCompetitors(game.getId())) {
+                    Player temp = playerDAO.getPlayer(competitor.getPlayerId());
+                    game.getPlayersList().set(i++, temp);
+                }
+
+                games.add(game);
+
+            } while (c.moveToNext());
+
+        }
+
         scoreDAO.close();
         roundDAO.close();
         playerDAO.close();

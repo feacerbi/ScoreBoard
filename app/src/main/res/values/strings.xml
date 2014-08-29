@@ -7,6 +7,7 @@
     <string name="title_section1">Current Game</string>
     <string name="title_section2">Saved Games</string>
     <string name="title_section3">Players</string>
+    <string name="title_section4">History</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_register_player">RegisterPlayerActivity</string>

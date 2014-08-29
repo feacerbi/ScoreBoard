@@ -79,7 +79,7 @@ public class CurrentMatchFragment extends Fragment {
 
             Round round = new Round(getGame().getGameMode());
 
-            round.setScoreTitle("Round " + String.valueOf(getGame().getRounds() + 1) + " Score");
+            round.setScoreTitle("Round " + String.valueOf(getGame().getRounds() + 1));
             round.getScore(0).setValue(Integer.parseInt(inputScore1.getText().toString()));
             round.getScore(1).setValue(Integer.parseInt(inputScore2.getText().toString()));
             round.getSubScore(0).setValue(getGame().getTotalScore(0).getValue() + round.getScore(0).getValue());
@@ -91,8 +91,10 @@ public class CurrentMatchFragment extends Fragment {
             sla.notifyDataSetChanged();
 
             if(updateScore()) {
-                new SaveGameTask((MainScoreActivity) getActivity()).execute(getGame());
+                getGame().setFinished(true);
             }
+
+            new SaveGameTask((MainScoreActivity) getActivity()).execute(getGame());
     }
 
     public void removeRound() {
@@ -163,7 +165,7 @@ public class CurrentMatchFragment extends Fragment {
 
     public boolean checkWinner() {
 
-        boolean up = true;
+        boolean up = false;
 
         List<Player> tempPlayers = getGame().getPlayersList();
         List<Score> totalScores = getGame().getTotalScoresList();
@@ -172,7 +174,7 @@ public class CurrentMatchFragment extends Fragment {
         switch (getGame().getGameMode()) {
             case Game.GAME_MODE_1X1:
                 if(checkWinScore(totalScores)) {
-                    up = false;
+                    up = true;
                     if(totalScores.get(0).getValue() > totalScores.get(1).getValue()) {
                         winnerList.add(tempPlayers.get(0));
                         setWinner(winnerList, 100, false);
@@ -187,7 +189,7 @@ public class CurrentMatchFragment extends Fragment {
                 break;
             case Game.GAME_MODE_2X2:
                 if(checkWinScore(totalScores)) {
-                    up = false;
+                    up = true;
                     if(totalScores.get(0).getValue() > totalScores.get(1).getValue()) {
                         winnerList.add(tempPlayers.get(0));
                         winnerList.add(tempPlayers.get(1));
@@ -214,6 +216,7 @@ public class CurrentMatchFragment extends Fragment {
         roundNumber.setText("Round " + (getGame().getRounds()));
 
         scoreList.addFooterView(getActivity().getLayoutInflater().inflate(R.layout.winner_footer, scoreList, false));
+        scoreList.addFooterView(getActivity().getLayoutInflater().inflate(R.layout.footer_bar_winner, scoreList, false));
         sla = new ScoreListAdapter(getActivity(), R.layout.round_item, getGame().getRoundsList());
         scoreList.setAdapter(sla);
 
@@ -236,9 +239,6 @@ public class CurrentMatchFragment extends Fragment {
 
         List<Game> games = new ArrayList<Game>();
         games.add(getGame());
-
-        // TODO History Games
-        new DeleteGamesTask((MainScoreActivity) getActivity(), null).execute(games);
 
         disable();
 
@@ -409,6 +409,8 @@ public class CurrentMatchFragment extends Fragment {
         scoreList.setEmptyView(emptyList);
         scoreList.addFooterView(getActivity().getLayoutInflater().inflate(R.layout.footer_bar, scoreList, false));
         scoreList.setFooterDividersEnabled(false);
+        scoreList.addHeaderView(getActivity().getLayoutInflater().inflate(R.layout.header_bar, scoreList, false));
+        scoreList.setHeaderDividersEnabled(false);
 
     }
 

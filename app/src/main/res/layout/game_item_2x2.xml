@@ -12,9 +12,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="0.1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <TextView
@@ -27,7 +24,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:ellipsize="marquee"
             android:scrollHorizontally="true"
-            android:textColor="@android:color/black"
+            android:textColor="@color/game_item_text_color"
             android:textSize="18sp"
             android:gravity="center_horizontal"/>
 
@@ -39,10 +36,11 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/andp2"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="&amp; "
-                android:textColor="@android:color/black"
+                android:textColor="@color/game_item_text_color"
                 android:textSize="18sp"/>
 
             <TextView
@@ -54,7 +52,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:ellipsize="marquee"
                 android:scrollHorizontally="true"
-                android:textColor="@android:color/black"
+                android:textColor="@color/game_item_text_color"
                 android:textSize="18sp"/>
         </LinearLayout>
 
@@ -65,7 +63,7 @@
             android:layout_weight="0.5"
             android:layout_marginTop="6dp"
             android:text="0"
-            android:textColor="@android:color/black"
+            android:textColor="@color/game_item_text_color"
             android:textSize="16sp"
             android:gravity="center_horizontal"/>
 
@@ -83,7 +81,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Round 1"
-            android:textColor="@android:color/black"
+            android:textColor="@color/game_item_text_color"
             android:textSize="12sp"
             android:maxLines="1"
             android:marqueeRepeatLimit="marquee_forever"
@@ -93,10 +91,11 @@
             android:gravity="center_horizontal|top"/>
 
         <TextView
+            android:id="@+id/vs"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="X"
-            android:textColor="@android:color/black"
+            android:textColor="@color/game_item_text_color"
             android:textSize="18sp"
             android:layout_gravity="center"
             android:gravity="center"/>
@@ -106,7 +105,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="3000"
-            android:textColor="@android:color/black"
+            android:textColor="@color/game_item_text_color"
             android:textSize="12sp"
             android:maxLines="1"
             android:layout_gravity="center_horizontal|bottom"
@@ -118,9 +117,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="0.1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical">
 
         <TextView
@@ -133,7 +129,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:ellipsize="marquee"
             android:scrollHorizontally="true"
-            android:textColor="@android:color/black"
+            android:textColor="@color/game_item_text_color"
             android:textSize="18sp"
             android:gravity="center_horizontal"/>
 
@@ -145,10 +141,11 @@
             android:gravity="center">
 
             <TextView
+                android:id="@+id/andp4"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="&amp; "
-                android:textColor="@android:color/black"
+                android:textColor="@color/game_item_text_color"
                 android:textSize="18sp"/>
 
             <TextView
@@ -160,7 +157,7 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:ellipsize="marquee"
                 android:scrollHorizontally="true"
-            android:textColor="@android:color/black"
+                android:textColor="@color/game_item_text_color"
             android:textSize="18sp"/>
         </LinearLayout>
 
@@ -171,7 +168,7 @@
             android:layout_weight="0.5"
             android:layout_marginTop="6dp"
             android:text="0"
-            android:textColor="@android:color/black"
+            android:textColor="@color/game_item_text_color"
             android:textSize="16sp"
             android:gravity="center_horizontal"/>
     </LinearLayout>

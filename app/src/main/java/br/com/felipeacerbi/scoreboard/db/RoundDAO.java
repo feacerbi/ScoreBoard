@@ -40,6 +40,7 @@ public class RoundDAO extends SQLiteOpenHelper{
        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_ROUNDS
                 + "(id INTEGER PRIMARY KEY, "
                 + "scoreTitle TEXT, "
+                + "time LONG, "
                 + "gameId INTEGER);";
 
         sldb.execSQL(sql);
@@ -62,6 +63,7 @@ public class RoundDAO extends SQLiteOpenHelper{
         ContentValues cv = new ContentValues();
 
         cv.put("scoreTitle", round.getScoreTitle());
+        cv.put("time", round.getTime());
         cv.put("gameId", round.getGame().getId());
 
         long id = getWritableDatabase().insert(TABLE_ROUNDS, null, cv);
@@ -112,6 +114,7 @@ public class RoundDAO extends SQLiteOpenHelper{
 
                 round.setId(c.getLong(c.getColumnIndex("id")));
                 round.setScoreTitle(c.getString(c.getColumnIndex("scoreTitle")));
+                round.setTime(c.getLong(c.getColumnIndex("time")));
                 round.setScores(scoreDAO.listRoundScores(round.getId(), Score.SCORE_NORMAL));
                 round.setSubScores(scoreDAO.listRoundScores(round.getId(), Score.SCORE_SUB));
                 rounds.add(round);

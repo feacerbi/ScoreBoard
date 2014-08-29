@@ -143,7 +143,7 @@ public class NewGameActivity extends ActionBarActivity {
 
         Game game = (Game) savedInstanceState.getSerializable("game");
 
-        restoreActionBar();Log.i("NGA", "restored");
+        restoreActionBar();
         if(ngh == null) {
             if (game != null) {
                 ngh = new NewGameHelper(this, game);

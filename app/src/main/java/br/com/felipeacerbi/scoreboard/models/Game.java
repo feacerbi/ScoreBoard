@@ -15,6 +15,7 @@ public class Game implements Serializable {
     private long id;
     private int winScore;
     private int gameMode;
+    private boolean finished;
     private List<Score> totalScores;
     private List<Player> players;
     private List<Round> rounds;
@@ -22,6 +23,7 @@ public class Game implements Serializable {
     public Game(int gameMode) {
 
         winScore = 3000;
+        finished = false;
         this.gameMode = gameMode;
 
         rounds = new ArrayList<Round>();
@@ -87,6 +89,24 @@ public class Game implements Serializable {
 
     }
 
+    public long getDuration() {
+        long time = 0;
+
+        for(Round round : rounds) {
+            time += round.getTime();
+        }
+
+        return time;
+    }
+
+    public long getFinishTime() {
+        if(finished && rounds.size() > 0) {
+            return rounds.get(rounds.size() - 1).getTime();
+        }
+
+        return 0;
+    }
+
     public int getRounds() {
         return rounds.size();
     }
@@ -137,6 +157,14 @@ public class Game implements Serializable {
 
     public int getGameMode() {
         return gameMode;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public boolean isFinished() {
+        return finished;
     }
 
     @Override

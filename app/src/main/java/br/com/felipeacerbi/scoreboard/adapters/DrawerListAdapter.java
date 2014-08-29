@@ -56,6 +56,9 @@ public class DrawerListAdapter extends ArrayAdapter<String> {
             case 2:
                 pic.setImageResource(R.drawable.ic_action_group);
                 break;
+            case 3:
+                pic.setImageResource(R.drawable.ic_history);
+                break;
         }
 
         name.setText(sections[pos]);

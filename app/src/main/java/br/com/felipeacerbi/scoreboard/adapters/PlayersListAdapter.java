@@ -79,13 +79,21 @@ public class PlayersListAdapter extends BaseAdapter {
         name.setText(player.getName());
         name.setSelected(true);
         score.setText("Score: " + player.getScore());
+
         if(selectedIds.get(pos)) {
             playerItem.setBackgroundColor(activity.getResources().getColor(R.color.pressed_color));
+            setTextViewsTextColor(playerItem, activity.getResources().getColor(android.R.color.white));
         } else {
             playerItem.setBackgroundResource(R.drawable.list_style);
+            setTextViewsTextColor(playerItem, activity.getResources().getColor(android.R.color.black));
         }
 
         return playerItem;
+    }
+
+    public void setTextViewsTextColor(View playerItem, int color) {
+        ((TextView) playerItem.findViewById(R.id.name_listview)).setTextColor(color);
+        ((TextView) playerItem.findViewById(R.id.score_listview)).setTextColor(color);
     }
 
     public List<Player> getPlayers() {

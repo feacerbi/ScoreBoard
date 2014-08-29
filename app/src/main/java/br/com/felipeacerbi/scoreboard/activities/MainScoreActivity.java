@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import br.com.felipeacerbi.scoreboard.app.ScoreBoardApplication;
 import br.com.felipeacerbi.scoreboard.fragments.CurrentMatchFragment;
 import br.com.felipeacerbi.scoreboard.fragments.GamesFragment;
+import br.com.felipeacerbi.scoreboard.fragments.HistoryFragment;
 import br.com.felipeacerbi.scoreboard.models.Game;
 import br.com.felipeacerbi.scoreboard.fragments.NavigationDrawerFragment;
 import br.com.felipeacerbi.scoreboard.fragments.PlayersFragment;
@@ -52,6 +53,9 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
             } else if(title.equals(getString(R.string.title_section3))) {
                 getMenuInflater().inflate(R.menu.players_light, menu);
                 restoreActionBar();
+            } else if(title.equals(getString(R.string.title_section4))) {
+                getMenuInflater().inflate(R.menu.history, menu);
+                restoreActionBar();
             }
             return true;
         }
@@ -89,6 +93,11 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
                         .replace(R.id.container, PlayersFragment.newInstance(position + 1))
                         .commit();
                 break;
+            case 3:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, HistoryFragment.newInstance(position + 1))
+                        .commit();
+                break;
         }
 
 
@@ -104,6 +113,9 @@ public class MainScoreActivity extends ActionBarActivity implements NavigationDr
                 break;
             case 3:
                 title = getString(R.string.title_section3);
+                break;
+            case 4:
+                title = getString(R.string.title_section4);
                 break;
         }
     }
