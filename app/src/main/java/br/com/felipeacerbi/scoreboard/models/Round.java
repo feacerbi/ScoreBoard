@@ -1,5 +1,7 @@
 package br.com.felipeacerbi.scoreboard.models;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -63,7 +65,6 @@ public class Round implements Serializable {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         int ampm = calendar.get(Calendar.AM_PM);
-
         if(day == today.get(Calendar.DAY_OF_MONTH) && month == today.get(Calendar.MONTH)) {
             formatted = (hour < 10 ? "0" + hour : "" + hour) +
                     ":" + (min < 10 ? "0" + min : "" + min) +
@@ -82,21 +83,31 @@ public class Round implements Serializable {
 
     public static String getFormattedTime(long time) {
 
+        String formatted = "";
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
 
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        Calendar today = Calendar.getInstance();
+
+        int hour = calendar.get(Calendar.HOUR);
         int min = calendar.get(Calendar.MINUTE);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         int ampm = calendar.get(Calendar.AM_PM);
-
-        String formatted = (hour < 10 ? "0" + hour : "" + hour) +
-                ":" + (min < 10 ? "0" + min : "" + min) +
-                " " + (ampm == 0 ? "AM" : "PM") +
-                " - " + calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()) +
-                " " + day +
-                ", " + year;
+        if(day == today.get(Calendar.DAY_OF_MONTH) && month == today.get(Calendar.MONTH)) {
+            formatted = (hour < 10 ? "0" + hour : "" + hour) +
+                    ":" + (min < 10 ? "0" + min : "" + min) +
+                    " " + (ampm == 0 ? "AM" : "PM");
+        } else {
+            formatted = (hour < 10 ? "0" + hour : "" + hour) +
+                    ":" + (min < 10 ? "0" + min : "" + min) +
+                    " " + (ampm == 0 ? "AM" : "PM") +
+                    " - " + calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.getDefault()) +
+                    " " + day +
+                    ", " + year;
+        }
 
         return formatted;
     }

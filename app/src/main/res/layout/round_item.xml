@@ -29,8 +29,8 @@
 
         <TextView
             android:id="@+id/round_score1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.1"
             android:text="1500"
             android:textStyle="bold"
@@ -39,9 +39,9 @@
             android:gravity="center"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.13"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
             android:text="Score"
             android:textColor="@color/default_text"
             android:textSize="14sp"
@@ -49,8 +49,8 @@
 
         <TextView
             android:id="@+id/round_score2"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="0.1"
             android:textColor="@color/default_text"
             android:text="1000"
@@ -101,6 +101,7 @@
             android:gravity="center"/>
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/round_score_title_date"
         android:layout_width="fill_parent"

@@ -15,6 +15,7 @@ import java.util.List;
 import br.com.felipeacerbi.scoreboard.R;
 import br.com.felipeacerbi.scoreboard.activities.MainScoreActivity;
 import br.com.felipeacerbi.scoreboard.adapters.GamesListAdapter;
+import br.com.felipeacerbi.scoreboard.adapters.HistoryListAdapter;
 import br.com.felipeacerbi.scoreboard.fragments.GamesFragment;
 import br.com.felipeacerbi.scoreboard.fragments.HistoryFragment;
 import br.com.felipeacerbi.scoreboard.models.Game;
@@ -27,7 +28,7 @@ public class HistoryContextActionBar implements android.support.v7.view.ActionMo
 
     private MainScoreActivity activity;
     private ListView list;
-    private GamesListAdapter adapter;
+    private HistoryListAdapter adapter;
     private HistoryFragment frag;
 
     public HistoryContextActionBar(MainScoreActivity activity, HistoryFragment frag, ListView list, int pos) {
@@ -35,7 +36,7 @@ public class HistoryContextActionBar implements android.support.v7.view.ActionMo
         this.activity = activity;
         this.frag = frag;
         this.list = list;
-        adapter = (GamesListAdapter) list.getAdapter();
+        adapter = (HistoryListAdapter) list.getAdapter();
         adapter.select(pos);
     }
 

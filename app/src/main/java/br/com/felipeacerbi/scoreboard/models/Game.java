@@ -89,14 +89,34 @@ public class Game implements Serializable {
 
     }
 
-    public long getDuration() {
+    public String getFormattedDuration() {
         long time = 0;
 
-        for(Round round : rounds) {
-            time += round.getTime();
+        if(getRounds() > 0) {
+            time = getRoundsList().get(getRounds() - 1).getTime() - getRoundsList().get(0).getTime();
+            time = time/1000;
         }
 
-        return time;
+        long years = time / 31556926;
+        time = time % 31556926;
+        long weeks = time / 604800;
+        time = time % 604800;
+        long days = time / 86400;
+        time = time % 86400;
+        long hours = time / 3600;
+        time = time % 3600;
+        long minutes = time / 60;
+        time = time % 60;
+        long seconds = time;
+
+        String formatted = years > 0 ? years + "y " : "" +
+                (weeks > 0 ? weeks + "w " : "") +
+                (days > 0 ? days + "d " : "") +
+                (hours > 0 ? hours + "h " : "") +
+                (minutes > 0 ? minutes + "m " : "") +
+                (seconds > 0 ? seconds + "s" : "");
+
+        return formatted;
     }
 
     public long getFinishTime() {

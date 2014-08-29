@@ -6,12 +6,13 @@ import android.widget.ListView;
 
 import br.com.felipeacerbi.scoreboard.activities.MainScoreActivity;
 import br.com.felipeacerbi.scoreboard.adapters.GamesListAdapter;
+import br.com.felipeacerbi.scoreboard.adapters.HistoryListAdapter;
 import br.com.felipeacerbi.scoreboard.db.GameDAO;
 
 /**
  * Created by felipe.acerbi on 11/07/2014.
  */
-public class ListHistoryTask extends AsyncTask<Void, Void, GamesListAdapter> {
+public class ListHistoryTask extends AsyncTask<Void, Void, HistoryListAdapter> {
 
     private MainScoreActivity msb;
     private ListView list;
@@ -34,23 +35,23 @@ public class ListHistoryTask extends AsyncTask<Void, Void, GamesListAdapter> {
     }
 
     @Override
-    protected GamesListAdapter doInBackground(Void... voids) {
+    protected HistoryListAdapter doInBackground(Void... voids) {
 
         GameDAO gdao = new GameDAO(msb);
 
-        GamesListAdapter gla = new GamesListAdapter(msb, gdao.listHistoryGames());
+        HistoryListAdapter hla = new HistoryListAdapter(msb, gdao.listHistoryGames());
 
         gdao.close();
 
-        return gla;
+        return hla;
     }
 
     @Override
-    protected void onPostExecute(GamesListAdapter gamesListAdapter) {
+    protected void onPostExecute(HistoryListAdapter historyListAdapter) {
 
         pdia.dismiss();
 
-        list.setAdapter(gamesListAdapter);
+        list.setAdapter(historyListAdapter);
 
         msb.getApp().unregister(this);
     }

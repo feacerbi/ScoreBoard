@@ -11,10 +11,10 @@
     <color name="hint_color">#8EFFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="action_bar_color">#F3F3F3</color>
-    <color name="score_card">@color/primary</color>
+    <color name="score_card">@color/default_text</color>
     <color name="score_card_button">@android:color/white</color>
     <color name="add_bar">#259b24</color>
     <color name="add_button">#00FFFFFF</color>
     <color name="default_color_undercard">#DDDDDD</color>
-    <color name="game_item_text_color">#000000</color>
+    <color name="game_item_text_color">@color/default_text</color>
 </resources>

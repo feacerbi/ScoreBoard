@@ -24,6 +24,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:ellipsize="marquee"
             android:scrollHorizontally="true"
+            android:textStyle="bold"
             android:textColor="@color/game_item_text_color"
             android:textSize="18sp"
             android:gravity="center_horizontal"/>
@@ -68,6 +69,7 @@
             android:layout_height="wrap_content"
             android:text="X"
             android:textColor="@color/game_item_text_color"
+            android:textStyle="bold"
             android:textSize="18sp"
             android:layout_gravity="center"
             android:gravity="center"/>
@@ -101,6 +103,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:ellipsize="marquee"
             android:scrollHorizontally="true"
+            android:textStyle="bold"
             android:textColor="@color/game_item_text_color"
             android:textSize="18sp"
             android:gravity="center_horizontal"/>
